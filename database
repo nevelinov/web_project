@@ -1,0 +1,27 @@
+user(username(key), password, properties)
+    username - unique string, key
+    password- used for storing password
+    role - 3 types 
+    properties - JSON(name...) 
+
+student_estimation(se_id, user, node_id, properties)
+    se_id - student estimation id, key
+    user - user(student) who gave the estimation
+    node_id - id of a leaf in the tree
+    estimation_text - 
+    estimation_value - 
+    properties - JSON(...)
+
+priority(priority_id, se_id, user, properties)
+    prioroty_id - prioroty id, key
+    se_id - student_estimation id
+    user - user(non_student) who gave priority of the student estimation
+    priority_value - (from 0.8 to 1.2)
+    properties - JSON(...)
+
+node(node_id, parent_node_id, properties)
+    node_id - node id, key
+    parent_node_id - parent node id
+    text - 
+    is_leaf - 
+    properties - JSON(colour...)

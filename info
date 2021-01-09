@@ -1,0 +1,62 @@
+Functionalities:
+
+login/register:
+    login.html
+    register.html
+    logout.html
+
+tree specific:
+    tree creation
+        .nn to database
+        database to html
+        database to .nn
+    tree modification
+        change node properties
+        change parent_node_if of node (when moving branches)
+
+Pages:
+user specific:
+    all roles:
+        login.html
+        logout.html
+        index.html
+    students:
+        index.html
+            preview tree
+            give estimation - pop-up
+    teachers:
+        index.html
+            preview tree
+            give priority of student estimations - pop-up
+    admin(teacher):
+        setup.html
+            1. import tree, merge trees
+            2. modify tree
+            3. export tree (empty)
+            4. save tree
+            5. register.html
+        register.html
+            bulk registration of users from file
+        restart.html
+            1. export tree with estimations and priorities
+            2. confirm restart
+            3. truncate DB
+            4. redirect to setup.html
+        index.html
+            preview tree
+            export tree with estimations and priorities
+        
+Use cases:
+1. Създаване на дърво
+
+
+2. Регистрация на потребители
+
+
+3. Даване на оценки
+
+
+4. Даване на приоритети
+
+
+Алгоритми:
