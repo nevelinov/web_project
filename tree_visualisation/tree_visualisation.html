@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="bg">
+    <head>
+        <title>Визуализация</title>
+        <meta charset="utf-8">
+		<link type="text/css" rel="stylesheet" href="tree_visualisation.css"  media="screen,projection"/>
+		<script type="text/javascript" src="Snap.svg/dist/snap.svg-min.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript" src="tree_drawer.js"></script>
+    </head>
+    <body onload="makeTree()" onresize="makeTree()">
+		<div class="tree-wrapper">
+			<svg class="tree" onmousedown="return false"></svg>
+			<!-- <svg class="svg-save" width="100" height="100" viewBox="0 0 300 150"></svg>
+			<button class="btn btn-primary save" style="float: right">
+				<svg class="bi" width="24px" height="24px" fill="currentColor">
+					<use xlink:href="/algo-site/source_files/bootstrap-icons/bootstrap-icons.svg#download"/>
+				</svg>
+			</button>
+			<canvas class="canvas-save"></canvas> -->
+		</div>
+    </body>
+</html>
