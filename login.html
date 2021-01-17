@@ -2,12 +2,17 @@
     <head>
         <meta charset="UTF-8" />
         <title>Влизане в системата</title>
+		<link rel="stylesheet" type="text/css" href="styles/login.css">
     </head>
+	
     <body>
-        <form method="POST" action="./login.php">
-            <input type="text" name="username" placeholder="Потребителско име"/></br>
-            <input type="password" name="password"  placeholder="Парола"/></br>
-            <input type="submit" value ="Вход" />
-        </form>
+		<div class="flex-div">
+			<form class="login-form" method="POST" action="./index.html">
+				<h1>Вписване</h1>
+				<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
+				<div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
+				<input class="login-button" type="submit" value ="Вход" />
+			</form>
+		</div>
     </body>
 </html>

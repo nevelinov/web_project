@@ -1,14 +1,28 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Регистрация</title>
+        <title>Регистриране на потребител</title>
+		<link rel="stylesheet" type="text/css" href="styles/register.css">
     </head>
+	
     <body>
-        <form method="POST" action="./users.php" id="register-form">
-            <input type="text" name="username" placeholder="Потребителско име"/><br/>
-            <input type="password" name="password"  placeholder="Парола" /></br>
-            <input type="role" name="role" placeholder="Роля" /></br>
-            <input type="submit" value ="Регистрация" id="register-button" />
-        </form>
+		<div class="flex-div">
+			<form id="register-form" method="POST" action="./index.html">
+				<h1>Регистриране</h1>
+				<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
+				<div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
+				<div class="roles">
+					<div class="role">
+						<input type="radio" id="student" name="role" value="student">
+						<label for="student">Student</label>
+					</div>
+					<div class="role">
+						<input type="radio" id="teacher" name="role" value="teacher">
+						<label for="teacher">Teacher</label>
+					</div>
+				</div>
+				<input id="register-button" type="submit" value ="Регистрация" />
+			</form>
+		</div>
     </body>
 </html>
