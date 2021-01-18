@@ -13,5 +13,9 @@
 	padding-left: 5px;
 	padding-right: 5px;
 	padding-bottom: 1px;
-	background: orange;
+	cursor: pointer;
+}
+.leaf-text {
+	border-radius: 0px;
+	cursor: default;
 }
