@@ -32,7 +32,7 @@
 		</div>
 	</main>
 
-	<div class="flex-div" id="popupRegForm" ondblclick='closeForm(event, "popupRegForm")'>
+	<div class="flex-div" id="popupRegForm" onclick='showMessage(event, "popupRegForm")' ondblclick='closeForm(event, "popupRegForm")'>
 		<form class="forms" id="regist-form" method="POST" action="./index.html">
 			<h1>Регистриране</h1>
 			<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
@@ -51,7 +51,7 @@
 		</form>
 	</div>
 
-	<div class="flex-div" id="popupEstimateForm" ondblclick='closeForm(event, "popupEstimateForm")'>
+	<div class="flex-div" id="popupEstimateForm" onclick='showMessage(event, "popupEstimateForm")' ondblclick='closeForm(event, "popupEstimateForm")'>
 		<form class="forms" id="estimate-form" method="POST" action="./index.html">
 			<h1>Времева оценка</h1>
 			<div class="estimation-text"><textarea type="text" name="estimation-text" rows="5" placeholder="Коментари по изпълнената задача..." ></textarea></div>
@@ -67,7 +67,7 @@
 		</form>
 	</div>
 
-	<div class="flex-div" id="popupPriorityForm" ondblclick='closeForm(event, "popupPriorityForm")'>
+	<div class="flex-div" id="popupPriorityForm" onclick='showMessage(event, "popupPriorityForm")' ondblclick='closeForm(event, "popupPriorityForm")'>
 		<form class="forms" id="priority-form" method="POST" action="./index.html">
 			<h1>Вярно ли е оценена задачата?</h1>
 			<div class="estimation-info">
@@ -102,6 +102,8 @@
 			</div>
 		</form>
 	</div>
+
+	<span id="notify">Double click to exit</span>
 
 	<footer>
 	
