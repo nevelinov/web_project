@@ -2,10 +2,16 @@
 <html lang="bg">
     <head>
         <meta charset="UTF-8" />
-        <title>Главна страница</title>
+		<title>Главна страница</title>
+		
 		<script defer src="js/open-close.js"></script>
+		<script defer src="js/navigate-between-estimations.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="styles/global-styles.css">
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<link rel="stylesheet" type="text/css" href="styles/register.css">
+		<link rel="stylesheet" type="text/css" href="styles/estimate.css">
+		<link rel="stylesheet" type="text/css" href="styles/priority.css">
     </head>
   
   <body>
@@ -14,6 +20,8 @@
 		<div class="button-group">
 			<a class="nav-button" href="setup.html">SETUP</a>
 			<a class="nav-button" onclick='openForm("popupRegForm")'>REGISTER</a>
+			<a class="nav-button" onclick='openForm("popupPriorityForm")'>P</a>
+			<a class="nav-button" onclick='openForm("popupEstimateForm")'>E</a>
 			<a class="nav-button" href="login.html">LOGOUT</a>
 		</div>
     </header>
@@ -24,8 +32,8 @@
 		</div>
 	</main>
 
-	<div class="flex-div" id="popupRegForm" onclick='closeForm("popupRegForm")'>
-		<form id="register-form" method="POST" action="">
+	<div class="flex-div" id="popupRegForm" ondblclick='closeForm(event, "popupRegForm")'>
+		<form class="forms" id="regist-form" method="POST" action="./index.html">
 			<h1>Регистриране</h1>
 			<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
 			<div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
@@ -39,7 +47,59 @@
 					<label for="teacher">Teacher</label>
 				</div>
 			</div>
-			<input id="register-button" type="submit" onclick='closeForm("popupRegForm")' value ="Регистрация" />
+			<input class="submit-button" id="register-submit-button" type="submit" onclick="closeForm('popupRegForm')" value ="Регистрация" />
+		</form>
+	</div>
+
+	<div class="flex-div" id="popupEstimateForm" ondblclick='closeForm(event, "popupEstimateForm")'>
+		<form class="forms" id="estimate-form" method="POST" action="./index.html">
+			<h1>Времева оценка</h1>
+			<div class="estimation-text"><textarea type="text" name="estimation-text" rows="5" placeholder="Коментари по изпълнената задача..." ></textarea></div>
+			<div class="estimation-value">
+				<label for="est-value">Време за изпълнение:</label>
+				<div id="hours">
+					<input type="number" id="est-value" name="estimation-value" step="0.5" min="0.5" value="6" />
+					<label for="est-value">h</label>
+				</div>
+			</div>
+			
+			<input class="submit-button" id="estimate-submit-button" type="submit" value ="Оцени" />
+		</form>
+	</div>
+
+	<div class="flex-div" id="popupPriorityForm" ondblclick='closeForm(event, "popupPriorityForm")'>
+		<form class="forms" id="priority-form" method="POST" action="./index.html">
+			<h1>Вярно ли е оценена задачата?</h1>
+			<div class="estimation-info">
+				<textarea id="estimation-info-text" type="text" name="estimation-info-text" rows="6" disabled></textarea>
+				<div class="show-estimation-value">
+					<label for="est-value">Време за изпълнение:</label>
+					<div id="hours">
+						<input type="number" id="est-value-disabled" name="estimation-value" disabled />
+						<label for="est-value">h</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="priority-value">
+				<input id="slider" type="range" list="tickmarks" min="0.8" max="1.2" value="1" step="0.1" />
+				<datalist id="tickmarks">
+				  <option value="0.8"></option>
+				  <option value="0.9"></option>
+				  <option value="1"></option>
+				  <option value="1.1"></option>
+				  <option value="1.2"></option>
+				</datalist>
+				<span>НЕ</span>
+				<span>50-50</span>
+				<span>ДА</span>
+			</div>
+			
+			<div class="nav-buttons">
+				<a class="prev-button" onclick="prev()">PREV</a>
+				<input class="submit-button" id="priority-submit-button" type="submit" value="Постави приоритет" />
+				<a class="next-button" onclick="next()">NEXT</a>
+			</div>
 		</form>
 	</div>
 

@@ -1,17 +1,18 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Влизане в системата</title>
+		<title>Влизане в системата</title>
+		<link rel="stylesheet" type="text/css" href="styles/global-styles.css">
 		<link rel="stylesheet" type="text/css" href="styles/login.css">
     </head>
 	
     <body>
-		<div class="flex-div">
-			<form id="login-form" method="POST" action="./index.html">
+		<div class="flex-div" id="login-form">
+			<form class="forms" method="POST" action="./index.html">
 				<h1>Вписване</h1>
 				<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
 				<div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
-				<input class="login-button" type="submit" value ="Вход" />
+				<input class="submit-button" type="submit" value ="Вход" />
 			</form>
 		</div>
     </body>

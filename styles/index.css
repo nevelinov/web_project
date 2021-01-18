@@ -1,78 +1,66 @@
-body {
-	font-family: Arail;
-	background-color: snow;
-	margin: 0px 0px 0px 0px;
-	width: 100vw;
-	min-width: 400px;
-}
-
 header {
-	box-sizing: border-box;
-	min-height: 69px;
-	height: 11vw;
-	max-height: 96px;
-	width: 100vw;
-	min-width: 400px;
-	border: 4px outset deepskyblue;
-	background-color: #1ce5ffcf;
-	
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	flex-wrap: wrap;
+  box-sizing: border-box;
+  min-height: 69px;
+  height: 11vw;
+  max-height: 96px;
+  width: 100vw;
+  min-width: 400px;
+  border: 4px outset deepskyblue;
+  background-color: #1ce5ffcf;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 #main {
-	width: 90%;
-	height: 500px;
-	padding: 0px 5% 0px 5%;
-	background-color: #1ce5ff45;
-	
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 90%;
+  height: 500px;
+  padding: 0px 5% 0px 5%;
+  background-color: #1ce5ff45;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 footer {
-	box-sizing: border-box;
-	min-height: 36px;
-	max-height:36px;
-	width: 100vw;
-	min-width: 400px;
-	border: 3px outset deepskyblue;
-	background-color: #1ce5ffcf;
+  box-sizing: border-box;
+  min-height: 36px;
+  max-height: 36px;
+  width: 100vw;
+  min-width: 400px;
+  border: 3px outset deepskyblue;
+  background-color: #1ce5ffcf;
 }
 
 .tree {
-	height: 75%;
-	width: 75%;
-	background-color: snow;
-	text-align: center;
+  height: 75%;
+  width: 75%;
+  background-color: snow;
+  text-align: center;
 }
 
 header > h2 {
-	min-width: 225px;
-	color: blue;
-	font-size: min(max(3.6vw, 18px), 36px);
-	margin: auto;
-	margin-left: 2%;
-	margin-right: 4%;
-}
-
-.button-group {
-	
+  min-width: 225px;
+  color: blue;
+  font-size: min(max(3.6vw, 18px), 36px);
+  margin: auto;
+  margin-left: 2%;
+  margin-right: 4%;
 }
 
 .nav-button {
-	padding: 3px 6px;
-	box-sizing: border-box;
-	border: solid 2px #0027ff;
-	border-radius: 6px;
-	background-color: #0304ff73;
-	text-decoration: none;
-	font-family: Arail;
-	font-weight: bolder;
-	font-size: min(max(2vw, 12px), 18px);
-	color: snow;
-	cursor: pointer;
+  padding: 3px 6px;
+  box-sizing: border-box;
+  border: solid 2px #0027ff;
+  border-radius: 6px;
+  background-color: #0304ff73;
+  text-decoration: none;
+  font-family: Arail;
+  font-weight: bolder;
+  font-size: min(max(2vw, 12px), 18px);
+  color: snow;
+  cursor: pointer;
 }

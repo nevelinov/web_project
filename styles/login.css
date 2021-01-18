@@ -1,70 +1,8 @@
 body {
-	font-family: Arail;
-	background-color: #1ce5ff45;
-}
-
-.flex-div {
-	display: flex;
-	width: 100%;
-	height:100%;
-	justify-content: center;
-	align-items: center;
+  font-family: Arail;
+  background-color: #1ce5ff45;
 }
 
 #login-form {
-	width: 30%;
-	height: 40%;
-	min-width: 300px;
-	max-width: 400px;
-	min-height: 350px;
-	max-height: 450px;
-	border-radius: 44px;
-	background-color: #7be3ff;
-	
-	display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: space-around;
-}
-
-#login-form > h1 {
-	font-style: italic;
-}
-
-.input-field, .login-button {
-	width: 85%;
-	height: 13%;
-}
-
-.input-field > input {
-	width:100%;
-	height: 100%;
-	border: solid 3px #01e597;
-	border-radius: 33px;
-	font-size: 16px;
-}
-
-.input-field > input:hover {
-	border: solid 3px #02a16a;
-	background-color: #efefef;
-}
-
-.input-field > input:focus {
-	outline: none;
-	border: solid 3px #02a16a;
-	background-color: #efefef;
-}
-
-.login-button {
-	background-color: #00b5e5;
-	border: solid 3px #9cffdd;
-	border-radius: 33px;
-	font-weight: bold;
-	font-size: 16px;
-}
-
-.login-button:hover {
-	background-color: #00a5d1;
-	border: solid 3px #ffffff;
-	color: snow;
+  display: flex;
 }
