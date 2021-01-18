@@ -1,0 +1,93 @@
+.flex-div {
+	display: none;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	z-index: 10;
+	width: 100vw;
+	height:100vh;
+	justify-content: center;
+	align-items: center;
+	background-color: #1ce5ff80;
+}
+
+#priority-form {
+	width: 40%;
+	height: 60%;
+	min-width: 300px;
+	max-width: 400px;
+	min-height: 350px;
+	max-height: 450px;
+	border-radius: 44px;
+	background-color: #7be3ff;
+	
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-around;
+}
+
+#priority-form > h1 {
+	font-style: italic;
+	text-align: center;
+}
+
+.estimation-info {
+	height: 40%;
+	width: 85%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.priority-value {
+	width: 85%;
+	height: 13%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+#slider {
+	width: 100%;
+}
+
+#tickmarks {
+	display;
+}
+
+.nav-buttons {
+	width: 85%;
+	height: 13%;
+	display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#priority-button {
+	height: 80%;
+	background-color: #00b5e5;
+	border: solid 3px #9cffdd;
+	border-radius: 33px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#priority-button:hover {
+	background-color: #00a5d1;
+	border: solid 3px #ffffff;
+	color: snow;
+}
+
+#prev-button, #next-button {
+	font-weight: bolder;
+	font-size: 16px;
+	padding: 5px;
+	cursor: pointer;
+	border-radius: 3px;
+}
+
+#prev-button:hover, #next-button:hover {
+	background-color: #00a5d1;
+}

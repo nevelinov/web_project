@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>Главна страница</title>
-		<script defer src="js/register.js"></script>
+		<script defer src="js/open-close.js"></script>
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<link rel="stylesheet" type="text/css" href="styles/register.css">
     </head>
@@ -13,7 +13,7 @@
 		<h2>ОЦЕНЯВАНЕ СЛОЖНОСТ НА ПРОЕКТИ</h2>
 		<div class="button-group">
 			<a class="nav-button" href="setup.html">SETUP</a>
-			<a class="nav-button" onclick="openRegForm()">REGISTER</a>
+			<a class="nav-button" onclick='openForm("popupRegForm")'>REGISTER</a>
 			<a class="nav-button" href="login.html">LOGOUT</a>
 		</div>
     </header>
@@ -24,7 +24,7 @@
 		</div>
 	</main>
 
-	<div class="flex-div" id="popupRegForm">
+	<div class="flex-div" id="popupRegForm" onclick='closeForm("popupRegForm")'>
 		<form id="register-form" method="POST" action="">
 			<h1>Регистриране</h1>
 			<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
@@ -39,7 +39,7 @@
 					<label for="teacher">Teacher</label>
 				</div>
 			</div>
-			<input id="register-button" type="submit" onclick="closeRegForm()" value ="Регистрация" />
+			<input id="register-button" type="submit" onclick='closeForm("popupRegForm")' value ="Регистрация" />
 		</form>
 	</div>
 
