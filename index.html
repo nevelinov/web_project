@@ -3,10 +3,14 @@
     <head>
         <meta charset="UTF-8" />
 		<title>Главна страница</title>
+						
+		<script defer type="text/javascript" src="libs/tree_visualisation/Snap.svg/dist/snap.svg-min.js"></script>
+		<script defer type="text/javascript" src="js/main.js"></script>
+		<script defer type="text/javascript" src="js/tree_drawer.js"></script>
+		<script defer type="text/javascript" src="js/open-close.js"></script>
+		<script defer type="text/javascript" src="js/navigate-between-estimations.js"></script>
 		
-		<script defer src="js/open-close.js"></script>
-		<script defer src="js/navigate-between-estimations.js"></script>
-
+		<link rel="stylesheet" type="text/css" href="styles/tree_visualisation.css"  media="screen,projection"/>
 		<link rel="stylesheet" type="text/css" href="styles/global-styles.css">
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<link rel="stylesheet" type="text/css" href="styles/register.css">
@@ -14,21 +18,28 @@
 		<link rel="stylesheet" type="text/css" href="styles/priority.css">
     </head>
   
-  <body>
+  <body onload="makeTree()">
     <header>
 		<h2>ОЦЕНЯВАНЕ СЛОЖНОСТ НА ПРОЕКТИ</h2>
 		<div class="button-group">
-			<a class="nav-button" href="setup.html">SETUP</a>
+			<a class="nav-button" href="pages/setup.html">SETUP</a>
 			<a class="nav-button" onclick='openForm("popupRegForm")'>REGISTER</a>
 			<a class="nav-button" onclick='openForm("popupPriorityForm")'>P</a>
 			<a class="nav-button" onclick='openForm("popupEstimateForm")'>E</a>
-			<a class="nav-button" href="login.html">LOGOUT</a>
+			<a class="nav-button" href="pages/login.html">LOGOUT</a>
 		</div>
     </header>
 
 	<main id="main">
-		<div class="tree">
-			#ДЪРВОООО!
+		<div class="tree-wrapper">
+			<svg class="tree" onmousedown="return false"></svg>
+			<!-- <svg class="svg-save" width="100" height="100" viewBox="0 0 300 150"></svg>
+			<button class="btn btn-primary save" style="float: right">
+				<svg class="bi" width="24px" height="24px" fill="currentColor">
+					<use xlink:href="/algo-site/source_files/bootstrap-icons/bootstrap-icons.svg#download"/>
+				</svg>
+			</button>
+			<canvas class="canvas-save"></canvas> -->
 		</div>
 	</main>
 

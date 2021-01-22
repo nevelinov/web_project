@@ -4,6 +4,10 @@ body {
   margin: 0px 0px 0px 0px;
   width: 100vw;
   min-width: 400px;
+  height: 100vh;
+	  
+  display: flex;
+  flex-direction: column;
 }
 
 .flex-div {

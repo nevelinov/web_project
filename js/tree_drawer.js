@@ -12,12 +12,14 @@ function Vertex () {
 		this.visible=true;
 	}
 }
+
 function SvgVertex () {
 	this.coord=undefined;
 	this.text=undefined;
 	this.width=undefined;
 	this.height=undefined;
 }
+
 function Tree () {
 	this.svgName=undefined; this.s=undefined; this.flagSave=undefined;
     this.svgVertices=undefined; this.edgeLines=undefined;
@@ -200,13 +202,13 @@ function Tree () {
 	}
 }
 
-
 function dfs (v, adjList, verticesData) {
 	verticesData[v].visible=false;
 	for (child of adjList[v]) {
 		dfs(child,adjList,verticesData);
 	}
 }
+
 function vertexClick (v) {
 	var child=this.adjList[v][0];
 	if (this.vertices[child].visible==true) {
@@ -221,7 +223,6 @@ function vertexClick (v) {
 	this.draw(false);
 }
 
-
 function findMaxDepth (vr, dep, adjList, verticesData) {
 	var max=dep;
     for (child of adjList[vr]) {
@@ -231,6 +232,7 @@ function findMaxDepth (vr, dep, adjList, verticesData) {
     }
     return max;
 }
+
 function fillVersDepth (vr, dep, maxDepth, adjList, verticesData, versDepth) {
 	if ((dep==maxDepth)||(vr!=-1)) versDepth[dep].push(vr);
 	var flagChildren=false;
@@ -243,6 +245,7 @@ function fillVersDepth (vr, dep, maxDepth, adjList, verticesData, versDepth) {
 	}
     if ((flagChildren==false)&&(dep<maxDepth)) fillVersDepth(-1,dep+1,maxDepth,adjList,verticesData,versDepth);
 }
+
 function calcPositions (tree) {
 	var i,j,h;
     
@@ -296,7 +299,6 @@ function calcPositions (tree) {
 	}
 	var xDistVertices=20;
 	var frameW=versDepth[maxDepth].length*(maxWidth+xDistVertices);
-	document.querySelector(tree.svgName).style.width=frameW+"px";
 	document.querySelector(tree.svgName).style.height=(y+heightDepth[maxDepth]+1)+"px";
 	
 	var x,distX;
@@ -352,4 +354,23 @@ function calcPositions (tree) {
 			j=h-1;
 		}
 	}
+	
+	var minX=frameW;
+	for (i=0; i<=maxDepth; i++) {
+		for (vertex of versDepth[i]) {
+			if (vertex==-1) continue;
+			let leftX=tree.svgVertices[vertex].coord[0];
+			if (minX>leftX) minX=leftX;
+		}
+	}
+	var maxX=0;
+	for (i=0; i<=maxDepth; i++) {
+		for (vertex of versDepth[i]) {
+			if (vertex==-1) continue;
+			tree.svgVertices[vertex].coord[0]-=minX;
+			let rightX=tree.svgVertices[vertex].coord[0]+tree.svgVertices[vertex].width;
+			if (maxX<rightX) maxX=rightX;
+		}
+	}
+	document.querySelector(tree.svgName).style.width=maxX+"px";
 }

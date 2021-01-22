@@ -1,3 +1,11 @@
+.tree-wrapper {
+	overflow: overlay;
+}
+
+.tree {
+	background-color: #c2f4fb;
+}
+
 .unselectable {
     -webkit-user-select: none;
     -moz-user-select: none;
