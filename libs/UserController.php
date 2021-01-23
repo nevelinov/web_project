@@ -23,17 +23,17 @@ class UserController {
             $connection = (new Db())->getConnection();
 
             $insertStatement = $connection->prepare("
-                INSERT INTO `users` (username, password, role)
-                    VALUES (:username, :password, :role)
+                INSERT INTO `users` (username, password, name, role)
+                    VALUES (:username, :password, :name, :role)
             ");
-            var_dump($newUserRequest->toArray());
+
             $result = $insertStatement->execute($newUserRequest->toArray());
         
             if ($result === false) {
-                var_dump($insertStatement->errorInfo());
+                //die(json_encode($insertStatement->errorInfo()));
+                return false;
             }
         } catch (PDOException $e) {
-            error_log($e->getMessage());
             return false;
         }
 
