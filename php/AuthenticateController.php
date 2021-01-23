@@ -32,7 +32,6 @@ class AuthenticateController {
             
             return null;
         } catch (PDOException $e) {
-            error_log($e->getMessage());
             return null;
         }
 

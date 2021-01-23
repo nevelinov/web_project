@@ -4,15 +4,16 @@
 		<title>Влизане в системата</title>
 		<link rel="stylesheet" type="text/css" href="../styles/global-styles.css">
 		<link rel="stylesheet" type="text/css" href="../styles/login.css">
+		<script src="../js/login.js"></script>
     </head>
 	
     <body>
 		<div class="flex-div" id="login-form">
-			<form class="forms" method="POST" action="../php/login.php">
+			<form class="forms" onsubmit="event.preventDefault();">
 				<h1>Вписване</h1>
-				<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
-				<div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
-				<input class="submit-button" type="submit" value ="Вход" />
+				<div class="input-field"><input type="text" id="username" name="username" placeholder="Потребителско име" /></div>
+				<div class="input-field"><input type="password" id="password" name="password" placeholder="Парола" /></div>
+				<input class="submit-button" id="login-btn" type="submit" value ="Вход" />
 			</form>
 		</div>
     </body>

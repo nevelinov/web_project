@@ -1,4 +1,4 @@
-function onBulkRegister() {
+async function onBulkRegister() {
     let registerData = document.getElementById('register-data').value;
     let users = [];
 
@@ -20,7 +20,7 @@ function onBulkRegister() {
     let lastRegisteredUser = null;
     for(user of users) {
         registerUser(user);
-        /*let registered = registerUser(user);
+        let registered = await registerUser(user);
         if (registered === true) {
             lastRegisteredUser = user;
         } else {
@@ -30,7 +30,7 @@ function onBulkRegister() {
                 alert("Грешка, погледнете в лога.");
             }
             return;
-        };*/
+        };
     }
     alert("Потребителите са успешно регистрирани!")
     document.getElementById('register-data').value = '';
@@ -44,11 +44,16 @@ async function registerUser(user) {
 
     url = '../php/users.php';
     let response = await fetch(url, {
-        method: 'POST',
-        body: requestBody
-    }).catch(error => console.error(error));
-
-    return response.status === 201;
+                method: 'POST',
+                body: requestBody
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log(response.json());
+                    alert('we have a problem');
+                }
+            })
+            .catch(error => console.log(error));
 }
 
 function showError(error) {

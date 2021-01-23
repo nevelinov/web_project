@@ -13,8 +13,6 @@ spl_autoload_register(function($className) {
     require_once("../php/$className.php");
 });
 
-// login request validation is optional
-
 // check if user is valid with valid password
 $loggedUser = AuthenticateController::login($loginData);
 $loginSuccessful = $loggedUser !== null;
@@ -22,7 +20,9 @@ $loginSuccessful = $loggedUser !== null;
 if ($loginSuccessful) {
     $_SESSION['username'] = $loggedUser['username'];
     $_SESSION['role'] = $loggedUser['role'];
-    header("Location: ../index.html");
+    http_response_code(200);
+    echo json_encode(['status' => 'logged in']);
 } else {
-    header("Location: ../pages/login.html");
+    http_response_code(400);
+    echo json_encode(['reason' => 'wrong credentials']);
 }
