@@ -1,0 +1,8 @@
+body {
+  font-family: Arail;
+  background-color: #1ce5ff45;
+}
+
+#login-form {
+  display: flex;
+}

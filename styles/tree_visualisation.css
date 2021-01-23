@@ -1,0 +1,39 @@
+.tree-wrapper {
+  overflow: auto;
+}
+
+/* Hide scrollbar*/
+.tree-wrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tree-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.tree {
+  background-color: #c2f4fb;
+}
+
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.vertex-text {
+  font-size: 20px;
+  overflow-wrap: break-word;
+  border: solid 2px;
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+  cursor: pointer;
+}
+.leaf-text {
+  border-radius: 0px;
+  cursor: default;
+}

@@ -1,0 +1,67 @@
+#priority-form {
+  width: 40%;
+  height: 60%;
+}
+
+.estimation-info {
+  height: 40%;
+  width: 85%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#estimation-info-text {
+  width: 100%;
+  resize: none;
+}
+
+.show-estimation-value {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#est-value-disabled {
+  width: 70%;
+}
+
+.priority-value {
+  width: 85%;
+  height: 13%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#slider {
+  width: 100%;
+}
+
+.nav-buttons {
+  width: 85%;
+  height: 13%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#priority-submit-button {
+  height: 100%;
+}
+
+.prev-button,
+.next-button {
+  font-weight: bolder;
+  font-size: 16px;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  background-color: #00a5d1;
+}

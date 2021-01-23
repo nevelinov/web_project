@@ -1,0 +1,32 @@
+#estimate-form {
+  height: fit-content;
+  max-height: fit-content;
+}
+
+.estimation-text,
+.estimation-value {
+  width: 85%;
+}
+
+.estimation-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#hours {
+  width: 33%;
+}
+
+#est-value {
+  width: 70%;
+}
+
+.estimation-text > textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+#estimate-submit-button {
+  height: 49.34px;
+}
