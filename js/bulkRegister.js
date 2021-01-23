@@ -42,7 +42,7 @@ async function registerUser(user) {
         requestBody.append(key, user[key]);
     }
 
-    url = 'users.php';
+    url = '../php/users.php';
     let response = await fetch(url, {
         method: 'POST',
         body: requestBody

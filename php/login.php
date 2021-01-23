@@ -10,7 +10,7 @@ $loginData = array(
 );
 
 spl_autoload_register(function($className) {
-    require_once("./libs/$className.php");
+    require_once("../php/$className.php");
 });
 
 // login request validation is optional
@@ -22,6 +22,7 @@ $loginSuccessful = $loggedUser !== null;
 if ($loginSuccessful) {
     $_SESSION['username'] = $loggedUser['username'];
     $_SESSION['role'] = $loggedUser['role'];
+    header("Location: ../index.html");
+} else {
+    header("Location: ../pages/login.html");
 }
-
-echo json_encode(['success' => $loginSuccessful]);

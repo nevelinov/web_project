@@ -3,7 +3,7 @@
 session_start();
 
 spl_autoload_register(function($className) {
-    require_once("./libs/$className.php");
+    require_once("../php/$className.php");
 });
 
 $logged = isset($_SESSION['username']);
