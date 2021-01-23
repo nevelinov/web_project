@@ -1,17 +1,24 @@
 <?php
+declare(strict_types=1);
 
 class User implements JsonSerializable {
     
     private string $username;
+    private string $name;
     private string $role;
 
-    public function __construct(string $username, string $role) {
+    public function __construct(string $username, string $name, string $role) {
         $this->username = $username;
+        $this->name = $name;
         $this->role = $role;
     }
 
     public function getUsername(): string {
         return $this->username;
+    }
+
+    public function getName(): string {
+        return $this->name;
     }
 
     public function getRole(): string {
@@ -20,7 +27,7 @@ class User implements JsonSerializable {
 
     public function jsonSerialize(): array {
 
-        $fieldsToSerialize = ['username', 'role'];
+        $fieldsToSerialize = ['username', 'name', 'role'];
 
         $jsonArray = [];
 
@@ -32,7 +39,6 @@ class User implements JsonSerializable {
     }
 
     public static function createFromArray(array $userArray): User {
-
-        return new User($userArray['username'], $userArray['role']);
+        return new User($userArray['username'], $userArray['name'], $userArray['role']);
     }
 }

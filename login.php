@@ -21,6 +21,7 @@ $loginSuccessful = $loggedUser !== null;
 
 if ($loginSuccessful) {
     $_SESSION['username'] = $loggedUser['username'];
+    $_SESSION['role'] = $loggedUser['role'];
 }
 
 echo json_encode(['success' => $loginSuccessful]);

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Request for creation of new User
@@ -6,9 +7,8 @@
 class NewUserRequest {
 
     private string $username;
-
     private string $password;
-
+    private string $name;
     private string $role;
 
     /**
@@ -18,9 +18,10 @@ class NewUserRequest {
      */
     public function __construct(array $userData) {
         
-        $this->username = isset($userData['username']) ? $userData['username'] : "";
-        $this->password = isset($userData['password']) ? $userData['password'] : "";
-        $this->role = isset($userData['role']) ? $userData['role'] : "";
+        $this->username = isset($userData["username"]) ? $userData["username"] : "";
+        $this->password = isset($userData["password"]) ? $userData["password"] : "";
+        $this->name = isset($userData["name"]) ? $userData["name"] : "";
+        $this->role = isset($userData["role"]) ? $userData["role"] : "";
     }
 
     /**
@@ -34,6 +35,7 @@ class NewUserRequest {
 
         $this->validateNonEmpty('username', $errors);
         $this->validateNonEmpty('password', $errors);
+        $this->validateNonEmpty('name', $errors);
         $this->validateNonEmpty('role', $errors);
 
         if ($errors) {
@@ -61,6 +63,7 @@ class NewUserRequest {
         return [
             'username' => $this->username,
             'password' => $this->generateHashedPassword(),
+            'name' => $this->name,
             'role' => $this->role,
         ];
     }
