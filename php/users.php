@@ -24,23 +24,30 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST': {
 
         $userRegisterRequest = new NewUserRequest($_POST);
+        $response = ['success' => false];
 
         try {
             $userRegisterRequest->validate();
         } catch (RequestValidationException $e) {
             http_response_code(400);
-            die(json_encode($e->getErrors()));
+            $response['errors'] = $e->getErrors();
+            echo json_encode($response);
+            return;
         }
 
         $added = $userCtrl->registerUser($userRegisterRequest);
+        $response['success'] = $added;
     
         if (!$added) {
             http_response_code(400);
+            $response['errors'] = [
+                'reason' => 'user already exists!'
+            ];
         } else {
             http_response_code(201);
         }
 
-        echo json_encode(['success' => $added]);
+        echo json_encode($response);
 
         break;
     }
