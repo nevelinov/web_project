@@ -13,8 +13,6 @@ class NewUserRequest {
 
     /**
      * Constructs a request object from associative array
-     * 
-     * @param $residentData user input with register resident data
      */
     public function __construct(array $userData) {
         
