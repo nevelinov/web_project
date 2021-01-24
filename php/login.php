@@ -16,13 +16,16 @@ spl_autoload_register(function($className) {
 // check if user is valid with valid password
 $loggedUser = AuthenticateController::login($loginData);
 $loginSuccessful = $loggedUser !== null;
+$response['success'] = false;
 
 if ($loginSuccessful) {
     $_SESSION['username'] = $loggedUser['username'];
     $_SESSION['role'] = $loggedUser['role'];
+    $response['success'] = true;
     http_response_code(200);
-    echo json_encode(['status' => 'logged in']);
+    echo json_encode($response);
 } else {
     http_response_code(400);
-    echo json_encode(['reason' => 'wrong credentials']);
+    $response['errors'] = ['reason' => 'Wrong credentials'];
+    echo json_encode($response);
 }

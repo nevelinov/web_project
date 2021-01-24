@@ -54,9 +54,9 @@ async function registerUser(user) {
     let response = await fetch(url, {
             method: 'POST',
             body: requestBody
-        });
+        }).then(response => response.json());
     
-    return response.json();
+    return response;
 }
 
 window.onload = function() {
