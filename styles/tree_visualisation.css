@@ -16,7 +16,11 @@
   background-color: #c2f4fb;
 }
 
-.unselectable, h1, h2, a, input {
+.unselectable,
+h1,
+h2,
+a,
+input {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

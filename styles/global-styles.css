@@ -44,6 +44,12 @@ body {
   text-align: center;
 }
 
+a,
+input,
+textarea {
+  outline: none;
+}
+
 .input-field {
   width: 85%;
   height: 13%;
@@ -68,6 +74,12 @@ body {
   background-color: #efefef;
 }
 
+textarea {
+  border: solid 3px #01e597;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
 .submit-button {
   width: 85%;
   height: 13%;
@@ -83,6 +95,7 @@ body {
   border: solid 3px snow;
   color: snow;
 }
+
 /* Popup */
 #notify {
   display: none;
