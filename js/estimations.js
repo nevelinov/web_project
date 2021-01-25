@@ -1,7 +1,8 @@
+// get all estimations
 async function getEstimations() {
     let response = await fetch('../php/estimations.php')
         .then(response => response.json());
-
+    
     if (response.success) {
         console.log(response.estimations);
     } else {
@@ -9,11 +10,10 @@ async function getEstimations() {
     }
 }
 
-// create (or update if existing) an estimation
+// create an estimation
 async function postEstimation() {
     // get these dynamically from document elements
     let requestBody = new FormData();
-    requestBody.append('estimation_id', 1);
     requestBody.append('user_id', 1);
     requestBody.append('node_id', 1);
     requestBody.append('estimation_text', 'estimation text');
@@ -27,7 +27,7 @@ async function postEstimation() {
     
     // TODO update
     if (response.success) {
-        console.log('success', response);
+        console.log('Estimation was added');
     } else {
         console.log(response.errors);
     }
@@ -44,5 +44,7 @@ window.onload = function() {
         }
     });
  
+    getEstimations();
+    postEstimation();
     getEstimations();
 }

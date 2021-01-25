@@ -34,7 +34,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     }
 
     case 'POST': {
-        die(json_encode('here!'));
+
         $estimationRequest = new EstimationRequest($_POST);
         $response['success'] = false;
         
@@ -47,9 +47,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
             return;
         }
         
-        $added = $estimationCtrl->postEstimation($estimationRequest);
+        $added = $estimationCtrl->createEstimation($estimationRequest);
         $response['success'] = $added;
-    
+        
         if (!$added) {
             http_response_code(400);
             $response['errors'] = [

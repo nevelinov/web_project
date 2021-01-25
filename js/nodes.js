@@ -35,7 +35,7 @@ async function updateNode() {
 async function addNode() {
     // get these dynamically
     let requestBody = new FormData();
-    requestBody.append('node_id', 2);
+    requestBody.append('node_id', 3);
     requestBody.append('parent_node_id', 1);
     requestBody.append('text', 'node 2');
     requestBody.append('is_leaf', true);

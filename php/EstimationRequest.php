@@ -6,33 +6,20 @@ declare(strict_types=1);
  */
 class EstimationRequest {
 
-    private int $estimationId;
     private int $userId;
     private int $nodeId;
     private string $estimationText;
-    private string $estimationValue;
-
-    private bool isCreateRequest;
+    private float $estimationValue;
 
     /**
      * Constructs a request object from associative array
      */
     public function __construct(array $estimationData) {
-
-        if (isset($estimationData['estimation_id'])) {
-            $this->isCreateRequest = false;
-            $this->estimationId = $estimationData['estimation_id'];
-        } else {
-            $this->isCreateRequest = true;
-            $this->estimationId = -1;
-        }
-
+    
         $this->userId = isset($estimationData["user_id"]) ? intval($estimationData["user_id"]) : -1;
         $this->nodeId = isset($estimationData["node_id"]) ? intval($estimationData["node_id"]) : -1;
-        
         $this->estimationText = isset($estimationData["estimation_text"]) ? $estimationData["estimation_text"] : "";
-        $this->estimationValue = isset($estimationData["estimation_value"]) ? boolval($estimationData["estimation_value"]) : -1;
-        $this->properties = isset($estimationData["properties"]) ? $estimationData["properties"] : "";
+        $this->estimationValue = isset($estimationData["estimation_value"]) ? floatval($estimationData["estimation_value"]) : -1;
     }
 
     /**
@@ -66,7 +53,6 @@ class EstimationRequest {
      */
     public function toArray(): array {
         return [
-            'se_id' => $this->estimationId,
             'user_id' => $this->userId,
             'node_id' => $this->nodeId,
             'estimation_text' => $this->estimationText,
