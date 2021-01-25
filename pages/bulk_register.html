@@ -1,14 +1,76 @@
-<html>
+<!DOCTYPE html>
+<html lang="bg">
     <head>
         <meta charset="UTF-8" />
         <title>Регистрация</title>
-        <script src="../js/bulkRegister.js"></script>
+        <script defer type="text/javascript" src="../js/bulkRegister.js"></script>
+		<script defer type="text/javascript" src="../js/open-close.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="../styles/global-styles.css">
+		<link rel="stylesheet" type="text/css" href="../styles/index.css">
+		<link rel="stylesheet" type="text/css" href="../styles/register.css">		
     </head>
-    <body>
-        <h4>Регистриране от файл</h4>
-        <textarea form="bulk-register" id="register-data" placeholder="Потребителско име, парола, име"></textarea>
-        <form id="bulk-register" onsubmit="event.preventDefault();">
-            <input type="submit" id="bulk-register-btn" value="Регистрация на потребителите">
-        </form>
-    </body>
+  
+  <body>
+    <header>
+		<h2>РЕГИСТРАЦИЯ НА ПОТРЕБИТЕЛИ</h2>
+		<div class="button-group">
+			<a class="nav-button" id="regist-one-button" onclick='openForm("popupRegForm")'>REGISTER ONE</a>
+			<a class="nav-button" id="back-button" href="setup.html">BACK</a>
+		</div>
+    </header>
+
+	<main id="main">
+		<div class="register">
+            <form class="forms" id="bulk-register" onsubmit="event.preventDefault();">
+                <h1>Регистриране на много потребителители</h1>		
+                <textarea type="text" name="bulk-register" rows="5" placeholder="CSV формат: потребителско име, парола, име..."></textarea>		
+                <input class="submit-button" id="bulk-register-button" type="submit" value="Регистрация на потребителите" />
+            </form>
+            <form class="forms" id="regist-one" onsubmit="event.preventDefault();">
+                <h1>Регистриране на един потребител</h1>
+                <div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
+                <div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
+                <div class="input-field"><input type="text" name="name" placeholder="Име" /></div>
+                <div class="roles">
+                    <div class="role">
+                        <input type="radio" id="student" name="role" value="student">
+                        <label for="student">Student</label>
+                    </div>
+                    <div class="role">
+                        <input type="radio" id="teacher" name="role" value="teacher">
+                        <label for="teacher">Teacher</label>
+                    </div>
+                </div>
+                <input class="submit-button" id="register-submit-button" type="submit" onclick="closeForm('popupRegForm')" value ="Регистрация" />
+            </form>
+        </div>	
+	</main>
+    
+    <div class="flex-div" id="popupRegForm" onclick='showMessage(event, "popupRegForm")' ondblclick='closeForm(event, "popupRegForm")'>
+		<form class="forms" id="regist-form" onsubmit="event.preventDefault();">
+			<h1>Регистриране</h1>
+			<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
+            <div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
+            <div class="input-field"><input type="text" name="name" placeholder="Име" /></div>
+			<div class="roles">
+				<div class="role">
+					<input type="radio" id="student" name="role" value="student">
+					<label for="student">Student</label>
+				</div>
+				<div class="role">
+					<input type="radio" id="teacher" name="role" value="teacher">
+					<label for="teacher">Teacher</label>
+				</div>
+			</div>
+			<input class="submit-button" id="register-submit-button" type="submit" onclick="closeForm('popupRegForm')" value ="Регистрация" />
+		</form>
+	</div>
+
+	<span id="notify">Double click to exit</span>
+
+	<footer>
+	
+    </footer>
+  </body>
 </html>

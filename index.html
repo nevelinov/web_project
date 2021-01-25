@@ -14,7 +14,6 @@
 		<link rel="stylesheet" type="text/css" href="styles/tree_visualisation.css"  media="screen,projection"/>
 		<link rel="stylesheet" type="text/css" href="styles/global-styles.css">
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
-		<link rel="stylesheet" type="text/css" href="styles/register.css">
 		<link rel="stylesheet" type="text/css" href="styles/estimate.css">
 		<link rel="stylesheet" type="text/css" href="styles/priority.css">
         
@@ -26,9 +25,7 @@
 		<h2>ОЦЕНЯВАНЕ СЛОЖНОСТ НА ПРОЕКТИ</h2>
 		<div class="button-group">
 			<a class="nav-button" href="pages/setup.html">SETUP</a>
-			<a class="nav-button" onclick='openForm("popupRegForm")'>REGISTER</a>
 			<a class="nav-button" onclick='openForm("popupPriorityForm")'>P</a>
-			<a class="nav-button" onclick='openForm("popupEstimateForm")'>E</a>
 			<a class="nav-button" href="pages/login.html">LOGOUT</a>
 		</div>
     </header>
@@ -45,25 +42,6 @@
 			<canvas class="canvas-save"></canvas> -->
 		</div>
 	</main>
-
-	<div class="flex-div" id="popupRegForm" onclick='showMessage(event, "popupRegForm")' ondblclick='closeForm(event, "popupRegForm")'>
-		<form class="forms" id="regist-form" method="POST" action="./index.html">
-			<h1>Регистриране</h1>
-			<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
-			<div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
-			<div class="roles">
-				<div class="role">
-					<input type="radio" id="student" name="role" value="student">
-					<label for="student">Student</label>
-				</div>
-				<div class="role">
-					<input type="radio" id="teacher" name="role" value="teacher">
-					<label for="teacher">Teacher</label>
-				</div>
-			</div>
-			<input class="submit-button" id="register-submit-button" type="submit" onclick="closeForm('popupRegForm')" value ="Регистрация" />
-		</form>
-	</div>
 
 	<div class="flex-div" id="popupEstimateForm" onclick='showMessage(event, "popupEstimateForm")' ondblclick='closeForm(event, "popupEstimateForm")'>
 		<form class="forms" id="estimate-form" method="POST">
