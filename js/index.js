@@ -4,8 +4,10 @@ fetch('php/getLoginStatus.php')
         if (!loginResponse.logged) {
             document.location = 'pages/login.html';
         } else {
-            console.log(loginResponse.logged, loginResponse.role);
-            // change html as login is successful
+            if (loginResponse.role != 'admin') {
+                document.getElementById("setup-button").style.display = "none";
+                document.getElementById("statistic-button").style.display = "none";
+            }
         }
     });
 
