@@ -50,6 +50,11 @@ Tree.prototype = {
     addDrag: function () {
         for (i=0; i<this.n; i++) {
             if ((this.svgVertices[i]!==undefined)&&(this.svgVertices[i].text!==undefined)) {
+                this.svgVertices[i].text.undrag();
+            }
+        }
+        for (i=0; i<this.n; i++) {
+            if ((this.svgVertices[i]!==undefined)&&(this.svgVertices[i].text!==undefined)) {
                 this.svgVertices[i].text.coord=this.svgVertices[i].coord;
                 this.svgVertices[i].text.drag(vertexMove, () => {},dragFinish.bind(this,this.svgVertices[i]));
             }

@@ -1,4 +1,4 @@
-fetch('php/getLoginStatus.php')
+fetch('../php/getLoginStatus.php')
     .then(response => response.json())
     .then(loginResponse => {
         if (!loginResponse.logged || loginResponse.role != 'admin') {

@@ -25,6 +25,17 @@ async function get_session_data(variables) {
     return data;
 }
 
+// get all estimations
+async function getEstimations() {
+    let response = await fetch('php/estimations.php')
+        .then(response => response.json());
+    
+    if (response.success) {
+        return response.estimations;
+    } else {
+        console.log(response.errors);
+    }
+}
 // create an estimation
 function postEstimation(vertexInfo) {
     // get these dynamically from document elements
