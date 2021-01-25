@@ -24,3 +24,33 @@ async function get_session_data(variables) {
     }
     return data;
 }
+
+// create an estimation
+function postEstimation(vertexInfo) {
+    // get these dynamically from document elements
+    get_session_data(['username','role']).then(async data => {
+        if (data.role!="student") {
+            alert("Трябва да сте студент, за да поставяте оценка");
+            return ;
+        }
+        
+        let requestBody = new FormData();
+        requestBody.append('user_id', data.username);
+        requestBody.append('node_id', vertexInfo.id);
+        requestBody.append('estimation_text', document.getElementById("estimation-text").value);
+        requestBody.append('estimation_value', document.getElementById("est-value").value);
+        
+        let response = await fetch('php/estimations.php', {
+                    method: 'POST',
+                    body: requestBody
+                })
+                .then(response => response.json());
+
+        // TODO update
+        if (response.success) {
+            console.log('Estimation was added');
+        } else {
+            console.log(response.errors);
+        }
+    });
+}
