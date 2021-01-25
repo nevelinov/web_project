@@ -8,6 +8,7 @@
 		<script defer type="text/javascript" src="js/main.js"></script>
 		<script defer type="text/javascript" src="js/tree_drawer.js"></script>
 		<script defer type="text/javascript" src="js/open-close.js"></script>
+		<script defer type="text/javascript" src="js/estimations.js"></script>
 		<script defer type="text/javascript" src="js/navigate-between-estimations.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="styles/tree_visualisation.css"  media="screen,projection"/>
@@ -16,6 +17,8 @@
 		<link rel="stylesheet" type="text/css" href="styles/register.css">
 		<link rel="stylesheet" type="text/css" href="styles/estimate.css">
 		<link rel="stylesheet" type="text/css" href="styles/priority.css">
+        
+		<title>ОЦЕНЯВАНЕ СЛОЖНОСТ НА ПРОЕКТИ</title>
     </head>
   
   <body onload="makeTree()">
@@ -63,9 +66,11 @@
 	</div>
 
 	<div class="flex-div" id="popupEstimateForm" onclick='showMessage(event, "popupEstimateForm")' ondblclick='closeForm(event, "popupEstimateForm")'>
-		<form class="forms" id="estimate-form" method="POST" action="./index.html">
-			<h1>Времева оценка</h1>
-			<div class="estimation-text"><textarea type="text" name="estimation-text" rows="5" placeholder="Коментари по изпълнената задача..." ></textarea></div>
+		<form class="forms" id="estimate-form" method="POST">
+			<h1 id="estimate-form-title">Времева оценка</h1>
+			<div class="estimation-text">
+                <textarea type="text" name="estimation-text" id="estimation-text" rows="5" placeholder="Коментари по изпълнената задача..." ></textarea>
+            </div>
 			<div class="estimation-value">
 				<label for="est-value">Време за изпълнение:</label>
 				<div id="hours">
@@ -79,8 +84,8 @@
 	</div>
 
 	<div class="flex-div" id="popupPriorityForm" onclick='showMessage(event, "popupPriorityForm")' ondblclick='closeForm(event, "popupPriorityForm")'>
-		<form class="forms" id="priority-form" method="POST" action="./index.html">
-			<h1>Вярно ли е оценена задачата?</h1>
+		<form class="forms" id="priority-form" method="POST">
+			<h1 id="priority-form-title">Вярно ли е оценена задачата?</h1>
 			<div class="estimation-info">
 				<textarea id="estimation-info-text" type="text" name="estimation-info-text" rows="6" disabled></textarea>
 				<div class="show-estimation-value">
@@ -107,9 +112,9 @@
 			</div>
 			
 			<div class="nav-buttons">
-				<a class="prev-button" onclick="prev()">PREV</a>
+				<a class="prev-button" id="prev-button">PREV</a>
 				<input class="submit-button" id="priority-submit-button" type="submit" value="Постави приоритет" />
-				<a class="next-button" onclick="next()">NEXT</a>
+				<a class="next-button" id="next-button">NEXT</a>
 			</div>
 		</form>
 	</div>

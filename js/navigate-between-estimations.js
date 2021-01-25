@@ -1,15 +1,18 @@
 let arr;
 let index;
 
-function next() {
-	const estimationText = document.getElementById('estimation-info-text');
+function next(vertexInfo) {
+    const estimationText = document.getElementById('estimation-info-text');
 	const estimationValue = document.getElementById('est-value-disabled');
 	index = index == arr.length - 1 ? 0 : index + 1;
+    
+    console.log(vertexInfo,index);
+	
 	estimationValue.value = arr[index].value;
 	estimationText.value = arr[index].text
 }
 
-function prev() {
+function prev(vertexInfo) {
 	const estimationText = document.getElementById('estimation-info-text');
 	const estimationValue = document.getElementById('est-value-disabled');
 	index = index == 0 ? arr.length - 1 : index - 1;

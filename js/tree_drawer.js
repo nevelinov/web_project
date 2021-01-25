@@ -1,10 +1,12 @@
 function Vertex () {
+    this.id=undefined;
 	this.name=undefined;
 	this.isLeaf=undefined;
 	this.color=undefined;
 	this.visible=undefined;
 	
-	this.init = function (name, isLeaf, color) {
+	this.init = function (id, name, isLeaf, color) {
+        this.id=id;
 		this.name=name;
 		this.isLeaf=isLeaf;
 		if (color!=="") this.color=color;
@@ -75,7 +77,7 @@ function Tree () {
 	this.addTreeData = function (treeData) {
 		// format of array treeData is in the database format
 		for (let i=0; i<this.n; i++) {
-			this.vertices[treeData[i][0]].init(treeData[i][2],treeData[i][3],treeData[i][4]);
+			this.vertices[treeData[i][0]].init(treeData[i][0],treeData[i][2],treeData[i][3],treeData[i][4]);
 		}
 		
 		for (let i=0; i<this.n; i++) {
@@ -93,7 +95,10 @@ function Tree () {
 		for (let i=0; i<this.n; i++) {
 			if ((this.svgVertices[i]!==undefined)&&(this.svgVertices[i].text!==undefined)) {
 				this.svgVertices[i].text.remove();
-				this.svgVertices[i].text.unclick(vertexClick);
+				if (this.svgVertices[i].visible==true) {
+                    if (this.svgVertices[i].isLeaf==true) this.svgVertices[i].text.unclick(leafClick);
+                    else this.svgVertices[i].text.unclick(vertexClick);
+                }
 			}
         }
 	}
@@ -195,8 +200,8 @@ function Tree () {
 			
 		for (let i=0; i<this.n; i++) {
 			if (this.vertices[i].visible==false) continue;
-			if (this.vertices[i].isLeaf==true) continue;
-			this.svgVertices[i].text.click(vertexClick.bind(this,i));
+			if (this.vertices[i].isLeaf==true) this.svgVertices[i].text.click(leafClick.bind(this,i));
+			else this.svgVertices[i].text.click(vertexClick.bind(this,i));
 		}
 		//if (addDrawableEdges==true) this.addDrawableEdges();
 	}
@@ -221,6 +226,42 @@ function vertexClick (v) {
 		}
 	}
 	this.draw(false);
+}
+
+function leafClick (v) {
+    var vertexInfo=this.vertices[v];
+    // better with cookies?
+    get_session_data(['role']).then(data => {
+        if (data.role=="student") {
+            var estimationForm = document.getElementById("popupEstimateForm");
+            estimationForm.style.display="flex";
+            document.getElementById("estimate-form-title").innerHTML="Времева оценка за изпълнение на: "+vertexInfo.name;
+            document.getElementById("estimation-text").value="";
+            document.getElementById("est-value").value="6";
+            document.getElementById("estimate-submit-button").onclick = function (event) {
+                event.preventDefault();
+                postEstimation(vertexInfo);
+                estimationForm.style.display="none";
+            }
+        }
+        else {
+            document.getElementById("popupPriorityForm").style.display="flex";
+            document.getElementById("priority-form-title").innerHTML="Вярно ли е оценена задача "+vertexInfo.name+"?";
+            document.getElementById("slider").value=1;
+            
+            document.getElementById("prev-button").onclick = function (event) {
+                prev(vertexInfo);
+            }
+            document.getElementById("next-button").onclick = function (event) {
+                next(vertexInfo);
+            }
+            
+            document.getElementById("priority-submit-button").onclick = function (event) {
+                event.preventDefault();
+                postPriority(vertexInfo);
+            }
+        }
+    });
 }
 
 function findMaxDepth (vr, dep, adjList, verticesData) {

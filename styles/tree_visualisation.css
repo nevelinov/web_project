@@ -16,7 +16,7 @@
   background-color: #c2f4fb;
 }
 
-.unselectable {
+.unselectable, h1, h2, a, input {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -35,5 +35,5 @@
 }
 .leaf-text {
   border-radius: 0px;
-  cursor: default;
+  cursor: pointer;
 }
