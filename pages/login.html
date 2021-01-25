@@ -4,7 +4,7 @@
 		<title>Влизане в системата</title>
 		<link rel="stylesheet" type="text/css" href="../styles/global-styles.css">
 		<link rel="stylesheet" type="text/css" href="../styles/login.css">
-		<script src="../js/login.js"></script>
+		<script defer type="text/javascript" src="../js/login.js"></script>
     </head>
 	
     <body>
@@ -13,6 +13,7 @@
 				<h1>Вписване</h1>
 				<div class="input-field"><input type="text" id="username" name="username" placeholder="Потребителско име" /></div>
 				<div class="input-field"><input type="password" id="password" name="password" placeholder="Парола" /></div>
+				<label class="error" id="wrongCredentials"></label>
 				<input class="submit-button" id="login-btn" type="submit" value ="Вход" />
 			</form>
 		</div>

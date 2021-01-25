@@ -1,3 +1,11 @@
+function showError() {
+    document.getElementById("wrongCredentials").innerHTML = "Wrong credentials!";
+}
+
+function hideError() {
+    document.getElementById("wrongCredentials").innerHTML = "";
+}
+
 // handle login action
 // if successfull redirect to index.html
 // otherwise reload page
@@ -12,15 +20,15 @@ async function onLogin() {
         }).then(response => response.json());
     
     if(response.success) {
+        hideError();
         document.location = '../index.html';
     } else {
-        // handle error, maybe show them
-        console.log(response.errors);
+        showError();
     }
 }
 
 // regiser login handler
-window.onload = async function() {
+(async () => {
     // logout user
     await fetch('../php/logout.php')
         .then(_ => {
@@ -29,4 +37,4 @@ window.onload = async function() {
 
     let loginBtn = document.getElementById('login-btn');
     loginBtn.addEventListener('click', onLogin);
-}
+})()
