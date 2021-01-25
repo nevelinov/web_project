@@ -15,15 +15,16 @@
   align-self: center;
 }
 
-#bulk-register-button,
-#register-submit-button {
-  height: 55px;
-}
-
 #bulk-register > textarea {
   width: 80%;
   height: 65%;
   resize: none;
+}
+
+#bulk-register > textarea:hover,
+#bulk-register > textarea:focus {
+  border: solid 3px #02a16a;
+  background-color: #efefef;
 }
 
 #regist-one {
@@ -54,6 +55,12 @@
 
 #regist-one-button {
   display: none;
+}
+
+#bulk-register-button,
+#register-one-submit-button,
+#register-one-popup-submit-button {
+  height: 55px;
 }
 
 @media only screen and (max-width: 760px) {
