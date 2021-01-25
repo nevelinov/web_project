@@ -4,7 +4,8 @@
         <meta charset="UTF-8" />
         <title>Регистрация</title>
         <script defer type="text/javascript" src="../js/bulkRegister.js"></script>
-		<script defer type="text/javascript" src="../js/open-close.js"></script>
+        <script defer type="text/javascript" src="../js/open-close.js"></script>
+        <script defer type="text/javascript" src="../js/setup.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="../styles/global-styles.css">
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
@@ -29,16 +30,16 @@
             </form>
             <form class="forms" id="regist-one" onsubmit="event.preventDefault();">
                 <h1>Регистриране на един потребител</h1>
-                <div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
-                <div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
-                <div class="input-field"><input type="text" name="name" placeholder="Име" /></div>
+                <div class="input-field"><input type="text" name="username" id="register-one-username" placeholder="Потребителско име" /></div>
+                <div class="input-field"><input type="password" name="password" id="register-one-password" placeholder="Парола" /></div>
+                <div class="input-field"><input type="text" name="name" id="register-one-name" placeholder="Име" /></div>
                 <div class="roles">
                     <div class="role">
-                        <input type="radio" name="role" value="student">
+                        <input type="radio" name="register-one-role" value="student">
                         <label for="student">Student</label>
                     </div>
                     <div class="role">
-                        <input type="radio" name="role" value="teacher">
+                        <input type="radio" name="register-one-role" value="teacher">
                         <label for="teacher">Teacher</label>
                     </div>
                 </div>
@@ -50,16 +51,16 @@
     <div class="flex-div" id="popupRegForm" onclick='showMessage(event, "popupRegForm")' ondblclick='closeForm(event, "popupRegForm")'>
 		<form class="forms" id="regist-form" onsubmit="event.preventDefault();">
 			<h1>Регистриране</h1>
-			<div class="input-field"><input type="text" name="username" placeholder="Потребителско име" /></div>
-            <div class="input-field"><input type="password" name="password" placeholder="Парола" /></div>
-            <div class="input-field"><input type="text" name="name" placeholder="Име" /></div>
+			<div class="input-field"><input type="text" name="username" id="register-one-popup-username" placeholder="Потребителско име" /></div>
+            <div class="input-field"><input type="password" name="password" id="register-one-popup-password" placeholder="Парола" /></div>
+            <div class="input-field"><input type="text" name="name" id="register-one-popup-name" placeholder="Име" /></div>
 			<div class="roles">
 				<div class="role">
-					<input type="radio" name="role" value="student">
+					<input type="radio" name="register-one-popup-role" value="student">
 					<label for="student">Student</label>
 				</div>
 				<div class="role">
-					<input type="radio" name="role" value="teacher">
+					<input type="radio" name="register-one-popup-role" value="teacher">
 					<label for="teacher">Teacher</label>
 				</div>
 			</div>
