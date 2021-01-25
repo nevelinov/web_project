@@ -1,6 +1,11 @@
-async function getNodes() {
-    let response = await fetch('php/nodes.php')
-        .then(response => response.json());
+async function getNodes(page) {
+    let response;
+    if (page=="index") {
+        response = await fetch('php/nodes.php').then(response => response.json());
+    }
+    else {
+        response = await fetch('../php/nodes.php').then(response => response.json());
+    }
 
     if (response.success) {
         return response.nodes;

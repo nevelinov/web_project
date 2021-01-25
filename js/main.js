@@ -1,9 +1,11 @@
-function makeTree () {
-    getNodes().then( nodes => {
+function makeTree (addDrag) {
+    let page;
+    if (addDrag==false) page="index";
+    else page="other";
+    getNodes(page).then( nodes => {
         var tree = new Tree();
         tree.init(".tree",nodes.length,false);
         tree.addTreeData(nodes);
-        tree.draw(false);
-        window.onresize = tree.draw(false);
+        window.onresize = tree.draw(addDrag);
     });
 }
