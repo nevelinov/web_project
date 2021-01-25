@@ -5,15 +5,16 @@ declare(strict_types=1);
  * Communicates with the database
  */
 class Db {
-
+    
     private PDO $connection;
 
     public function __construct() {
-        // TODO: read this data from conf file
-        $dbhost = "localhost";
-        $dbName = "web-project";
-        $userName = "root";
-        $userPassword = "";
+        $config = include('config.php');
+
+        $dbhost = $config['db_host'];
+        $dbName = $config['db_name'];
+        $userName = $config['db_username'];
+        $userPassword = $config['db_password'];
 
         $this->connection = new PDO("mysql:host=$dbhost;dbname=$dbName", $userName, $userPassword,
             [
