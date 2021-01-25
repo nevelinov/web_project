@@ -1,3 +1,43 @@
+.register {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#bulk-register {
+  width: 60%;
+  height: 100%;
+  max-height: none;
+  max-width: none;
+  background-color: transparent;
+  align-self: center;
+}
+
+#bulk-register-button,
+#register-submit-button {
+  height: 55px;
+}
+
+#bulk-register > textarea {
+  width: 80%;
+  height: 65%;
+  resize: none;
+}
+
+#regist-one {
+  width: 30%;
+  height: 45%;
+  max-width: none;
+  background-color: transparent;
+  align-self: center;
+}
+
+#regist-one > .input-field {
+  height: 11%;
+}
+
 .roles {
   display: flex;
   justify-content: space-around;
@@ -10,4 +50,22 @@
   font-family: Arial;
   font-weight: bold;
   font-size: 16px;
+}
+
+#regist-one-button {
+  display: none;
+}
+
+@media only screen and (max-width: 760px) {
+  #bulk-register {
+    width: 100%;
+  }
+
+  #regist-one {
+    display: none;
+  }
+
+  #regist-one-button {
+    display: initial;
+  }
 }
