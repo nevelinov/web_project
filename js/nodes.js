@@ -1,9 +1,9 @@
 async function getNodes() {
-    let response = await fetch('../php/nodes.php')
+    let response = await fetch('php/nodes.php')
         .then(response => response.json());
 
     if (response.success) {
-        console.log(response.nodes);
+        return response.nodes;
     } else {
         console.log("no nodes?");
     }
@@ -41,7 +41,7 @@ async function addNode() {
     requestBody.append('is_leaf', true);
     requestBody.append('properties', 'node 2 json');
 
-    let response = await fetch('../php/nodes.php', {
+    let response = await fetch('php/nodes.php', {
                 method: 'POST',
                 body: requestBody
             })
@@ -55,18 +55,18 @@ async function addNode() {
     }
 }
 
-window.onload = function() {
+/*window.onload = function() {
     // check if user is logged in
     // if not redirect to login page
-    fetch('../php/getLoginStatus.php')
+    fetch('php/getLoginStatus.php')
         .then(response => response.json())
         .then(loginResponse => {
             if (!loginResponse.logged) {
-                document.location = '../pages/login.html';
+                document.location = 'pages/login.html';
         }
     });
  
     getNodes();
     addNode();
     getNodes();
-}
+}*/

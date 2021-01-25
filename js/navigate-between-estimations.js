@@ -2,17 +2,16 @@ let arr;
 let index;
 
 function next(vertexInfo) {
+    if (arr.length == 0) return ;
     const estimationText = document.getElementById('estimation-info-text');
 	const estimationValue = document.getElementById('est-value-disabled');
 	index = index == arr.length - 1 ? 0 : index + 1;
-    
-    console.log(vertexInfo,index);
-	
-	estimationValue.value = arr[index].value;
+    estimationValue.value = arr[index].value;
 	estimationText.value = arr[index].text
 }
 
 function prev(vertexInfo) {
+    if (arr.length == 0) return ;
 	const estimationText = document.getElementById('estimation-info-text');
 	const estimationValue = document.getElementById('est-value-disabled');
 	index = index == 0 ? arr.length - 1 : index - 1;
@@ -21,7 +20,7 @@ function prev(vertexInfo) {
 }
 
 (() => {
-	index = 0;
+	/*index = 0;
 	arr = [
 		{text: "Ala Bala", value: 1},
 		{text: "KO STAA", value: 3},
@@ -34,5 +33,5 @@ function prev(vertexInfo) {
 	const estimationText = document.getElementById('estimation-info-text');
 	const estimationValue = document.getElementById('est-value-disabled');
 	estimationValue.value = arr[index].value;
-	estimationText.value = arr[index].text
+	estimationText.value = arr[index].text*/
 })();

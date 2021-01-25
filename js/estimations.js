@@ -1,10 +1,10 @@
 // get all estimations
 async function getEstimations() {
-    let response = await fetch('../php/estimations.php')
+    let response = await fetch('php/estimations.php')
         .then(response => response.json());
     
     if (response.success) {
-        console.log(response.estimations);
+        return response.estimations;
     } else {
         console.log(response.errors);
     }
