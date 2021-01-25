@@ -13,13 +13,6 @@ if (!$logged) {
     return;
 }
 
-$isStudent = $_SESSION['role'] == 'student';
-if (!$isStudent) {
-    http_response_code(401);
-    echo json_encode(['errors' => 'За да поставяте оценка трябва да сте студент.'], JSON_UNESCAPED_UNICODE);
-    return;
-}
-
 $estimationCtrl = new EstimationController();
 
 switch ($_SERVER['REQUEST_METHOD']) {
@@ -34,6 +27,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
     }
 
     case 'POST': {
+        $isStudent = $_SESSION['role'] == 'student';
+        if (!$isStudent) {
+            http_response_code(401);
+            echo json_encode(['errors' => 'За да поставяте оценка трябва да сте студент.'], JSON_UNESCAPED_UNICODE);
+            return;
+        }
 
         $estimationRequest = new EstimationRequest($_POST);
         $response['success'] = false;

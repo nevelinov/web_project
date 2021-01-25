@@ -77,13 +77,13 @@ function Tree () {
 	this.addTreeData = function (treeData) {
 		// format of array treeData is in the database format
 		for (let i=0; i<this.n; i++) {
-			this.vertices[treeData[i][0]].init(treeData[i][0],treeData[i][2],treeData[i][3],treeData[i][4]);
+			this.vertices[treeData[i].nodeId].init(treeData[i].nodeId,treeData[i].text,treeData[i].isLeaf,treeData[i].properties);
 		}
 		
 		for (let i=0; i<this.n; i++) {
-			if (treeData[i][1]==-1) continue;
-			this.vertices[treeData[i][0]].visible=false;
-			this.edgeList.push([treeData[i][1],treeData[i][0]]);
+			if (treeData[i].parentNodeId==-1) continue;
+			this.vertices[treeData[i].nodeId].visible=false;
+			this.edgeList.push([treeData[i].parentNodeId,treeData[i].nodeId]);
 		}
 		this.fillAdjListAndMatrix();
 	}
@@ -249,17 +249,39 @@ function leafClick (v) {
             document.getElementById("priority-form-title").innerHTML="Вярно ли е оценена задача "+vertexInfo.name+"?";
             document.getElementById("slider").value=1;
             
-            document.getElementById("prev-button").onclick = function (event) {
-                prev(vertexInfo);
-            }
-            document.getElementById("next-button").onclick = function (event) {
-                next(vertexInfo);
-            }
-            
-            document.getElementById("priority-submit-button").onclick = function (event) {
-                event.preventDefault();
-                postPriority(vertexInfo);
-            }
+            getEstimations().then(estimations => {
+                index = 0;
+                arr = [];
+                for (estimation of estimations) {
+                    if (estimation.nodeId==vertexInfo.id) {
+                        arr.push({
+                            text: estimation.estimationText,
+                            value: estimation.estimationValue,
+                            id: estimation.estimationId
+                        });
+                    }
+                }
+                if (arr.length>0) {
+                   document.getElementById('estimation-info-text').value = arr[index].text;
+	               document.getElementById('est-value-disabled').value = arr[index].value;
+                }
+                else {
+                   document.getElementById('estimation-info-text').value = "";
+	               document.getElementById('est-value-disabled').value = "";
+                }
+                
+                document.getElementById("prev-button").onclick = function (event) {
+                    prev(vertexInfo);
+                }
+                document.getElementById("next-button").onclick = function (event) {
+                    next(vertexInfo);
+                }
+
+                document.getElementById("priority-submit-button").onclick = function (event) {
+                    event.preventDefault();
+                    postPriority(vertexInfo);
+                }   
+            });
         }
     });
 }
