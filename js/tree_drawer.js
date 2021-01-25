@@ -103,8 +103,13 @@ function Tree () {
         }
 	}
 	
-	this.draw = function (addDrawableEdges) {
-		var oldEdges = [];
+	this.draw = function (addDrag) {
+        // If addDrag is true than we are at setup page, so no click events for vertices and vice versa
+		for (let i=0; i<this.n; i++) {
+            if (addDrag===true) this.vertices[i].visible=true;
+        }
+        
+        var oldEdges = [];
 		for (let i=0; i<this.edgeList.length; i++) {
 			if ((this.edgeLines[i]!==undefined)&&(!this.edgeLines[i].hasOwnProperty("removed"))) oldEdges[i]=true;
 			else oldEdges[i]=false;
@@ -198,12 +203,14 @@ function Tree () {
 			}.bind(this),250);
 		}
 			
-		for (let i=0; i<this.n; i++) {
-			if (this.vertices[i].visible==false) continue;
-			if (this.vertices[i].isLeaf==true) this.svgVertices[i].text.click(leafClick.bind(this,i));
-			else this.svgVertices[i].text.click(vertexClick.bind(this,i));
-		}
-		//if (addDrawableEdges==true) this.addDrawableEdges();
+        if (addDrag===false) {
+            for (let i=0; i<this.n; i++) {
+                if (this.vertices[i].visible==false) continue;
+                if (this.vertices[i].isLeaf==true) this.svgVertices[i].text.click(leafClick.bind(this,i));
+                else this.svgVertices[i].text.click(vertexClick.bind(this,i));
+            }
+        }
+		else this.addDrag();
 	}
 }
 
