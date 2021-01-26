@@ -368,11 +368,11 @@ function calcPositions (tree) {
 		if (i<maxDepth) y+=heightDepth[i]+yDistVertices;
 	}
 	var xDistVertices=20;
-	var frameW=versDepth[maxDepth].length*(maxWidth+xDistVertices);
+	var frameW=versDepth[maxDepth].length*(maxWidth+xDistVertices)+xDistVertices;
 	document.querySelector(tree.svgName).style.height=(y+heightDepth[maxDepth]+1)+"px";
 	
 	var x,distX;
-	x=0; distX=frameW/(versDepth[maxDepth].length);
+	x=xDistVertices; distX=frameW/(versDepth[maxDepth].length);
 	for (vertex of versDepth[maxDepth]) {
 		if (vertex!=-1) tree.svgVertices[vertex].coord=[x,y];
 		x+=distX;
@@ -402,7 +402,7 @@ function calcPositions (tree) {
 		for (j=0; j<versDepth[i].length; j++) {
 			let v=versDepth[i][j];
 			if (tree.svgVertices[v].coord!==undefined) {
-			   prevX=tree.svgVertices[v].coord[0]+tree.svgVertices[v].width;
+			   prevX=tree.svgVertices[v].coord[0]+tree.svgVertices[v].width+xDistVertices;
 			   continue;
 			}
 			var cnt=0,nextX=frameW;
@@ -414,13 +414,24 @@ function calcPositions (tree) {
 				}
 				cnt++;
 			}
-			var x=prevX;
-			for (h=j; h<versDepth[i].length; h++) {
-				let v=versDepth[i][h];
-				if (tree.svgVertices[v].coord!==undefined) break;
-				x+=(nextX-prevX)/(cnt+1);
-				tree.svgVertices[v].coord=[x-tree.svgVertices[v].width/2,y];
-			}
+			if (cnt<=3) {
+                var x=prevX;
+                for (h=j; h<versDepth[i].length; h++) {
+                    let v=versDepth[i][h];
+                    if (tree.svgVertices[v].coord!==undefined) break;
+                    x+=(nextX-prevX-xDistVertices)/(cnt+1);
+                    tree.svgVertices[v].coord=[x-tree.svgVertices[v].width/2,y];
+                }
+            }
+            else {
+                var x=prevX;
+                for (h=j; h<versDepth[i].length; h++) {
+                    let v=versDepth[i][h];
+                    if (tree.svgVertices[v].coord!==undefined) break;
+                    tree.svgVertices[v].coord=[x-tree.svgVertices[v].width/2,y];
+                    x+=(nextX-prevX-xDistVertices)/cnt;
+                }
+            }
 			j=h-1;
 		}
 	}
