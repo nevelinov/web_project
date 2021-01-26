@@ -7,7 +7,13 @@ function findSubTree (v, adjList, subtree) {
         findSubTree(to,adjList,subtree);
     }
 }
+function dragStart (vertexText) {
+    this.clone=vertexText.clone();
+    this.s.append(this.clone);
+}
 function dragFinish (vertex) {
+    this.clone.remove();
+    
     let currX=vertex.text.transform().totalMatrix.e,currY=vertex.text.transform().totalMatrix.f;
     
     let near=-1,ind;
@@ -67,7 +73,9 @@ Tree.prototype = {
         for (i=0; i<this.n; i++) {
             if ((this.svgVertices[i]!==undefined)&&(this.svgVertices[i].text!==undefined)) {
                 this.svgVertices[i].text.coord=this.svgVertices[i].coord;
-                this.svgVertices[i].text.drag(vertexMove, () => {},dragFinish.bind(this,this.svgVertices[i]));
+                this.svgVertices[i].text.drag(vertexMove,
+                                              dragStart.bind(this, this.svgVertices[i].text), 
+                                              dragFinish.bind(this,this.svgVertices[i]));
             }
         }
     }

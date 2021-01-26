@@ -1,7 +1,7 @@
 function makeTreeAndCalc () {
     getNodes("other").then( nodes => {
         var tree = new Tree();
-        tree.init(".tree",nodes.length,false);
+        tree.init(".tree",nodes.length);
         tree.addTreeData(nodes);
         window.onresize = drawAndCalc(tree);
     });

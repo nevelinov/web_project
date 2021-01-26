@@ -2,15 +2,14 @@ function Vertex () {
     this.id=undefined;
 	this.name=undefined;
 	this.isLeaf=undefined;
-	this.color=undefined;
+	this.cssProperties=undefined;
 	this.visible=undefined;
 	
-	this.init = function (id, name, isLeaf, color) {
+	this.init = function (id, name, isLeaf, cssProperties) {
         this.id=id;
 		this.name=name;
 		this.isLeaf=isLeaf;
-		if (color!=="") this.color=color;
-		else this.color="orange";
+		this.cssProperties=cssProperties;
 		this.visible=true;
 	}
 }
@@ -23,11 +22,11 @@ function SvgVertex () {
 }
 
 function Tree () {
-	this.svgName=undefined; this.s=undefined; this.flagSave=undefined;
+	this.svgName=undefined; this.s=undefined;
     this.svgVertices=undefined; this.edgeLines=undefined;
     this.n=undefined; this.vertices=undefined;
     this.edgeList=undefined; this.adjList=undefined; this.adjMatrix=undefined;
-    this.init = function (svgName, n, flagSave) {
+    this.init = function (svgName, n) {
 		if (this.s==undefined) {
 			this.svgName=svgName;
 			this.s=Snap(svgName);
@@ -50,11 +49,12 @@ function Tree () {
                 this.adjMatrix[i][j]=0;
 			}
 		}
-        this.flagDraw=false;
+        
+        addSaveFunctionality(svgName);
 	}
     
 	this.fillAdjListAndMatrix = function () {
-		var edgeList=this.edgeList,max=0;
+		let edgeList=this.edgeList,max=0;
         for (i=0; i<edgeList.length; i++) {
 			if (max<edgeList[i][0]) max=edgeList[i][0];
 			if (max<edgeList[i][1]) max=edgeList[i][1];
@@ -68,7 +68,7 @@ function Tree () {
             this.adjList[i]=[];
         }
         for (i=0; i<edgeList.length; i++) {
-            var x=edgeList[i][0],y=edgeList[i][1];
+            let x=edgeList[i][0],y=edgeList[i][1];
             this.adjMatrix[x][y]=1;
             this.adjList[x].push(y);
         }
@@ -109,32 +109,32 @@ function Tree () {
             if (addDrag===true) this.vertices[i].visible=true;
         }
         
-        var oldEdges = [];
+        let oldEdges = [];
 		for (let i=0; i<this.edgeList.length; i++) {
 			if ((this.edgeLines[i]!==undefined)&&(!this.edgeLines[i].hasOwnProperty("removed"))) oldEdges[i]=true;
 			else oldEdges[i]=false;
 		}
-		var oldCoords = [];
+		let oldCoords = [];
 		for (let i=0; i<this.n; i++) {
 			if ((this.svgVertices[i]!==undefined)&&(!this.svgVertices[i].hasOwnProperty("removed"))) oldCoords[i]=this.svgVertices[i].coord;
 		}
-		var oldFrameW=document.querySelector(this.svgName).style.width;
-		var oldFrameH=document.querySelector(this.svgName).style.height;
+		let oldFrameW=document.querySelector(this.svgName).style.width;
+		let oldFrameH=document.querySelector(this.svgName).style.height;
 		
 		this.erase();
 		for (let i=0; i<this.n; i++) {
 			this.svgVertices[i] = new SvgVertex();
 		}
 		calcPositions(this);
-		var newFrameW=document.querySelector(this.svgName).style.width;
-		var newFrameH=document.querySelector(this.svgName).style.height;
+		let newFrameW=document.querySelector(this.svgName).style.width;
+		let newFrameH=document.querySelector(this.svgName).style.height;
 		if (parseFloat(newFrameW)<parseFloat(oldFrameW)) document.querySelector(this.svgName).style.width=oldFrameW;
 		if (parseFloat(newFrameH)<parseFloat(oldFrameH)) document.querySelector(this.svgName).style.height=oldFrameH;
 		
-		var tempDiv = document.createElement("div");
+		let tempDiv = document.createElement("div");
 		document.body.appendChild(tempDiv);
 		tempDiv.classList.add("vertex-text");
-		var strokeWidth=getComputedStyle(tempDiv).borderLeftWidth;
+		let strokeWidth=getComputedStyle(tempDiv).borderLeftWidth;
 		document.body.removeChild(tempDiv);
 		
 		for (let i=0; i<this.edgeList.length; i++) {
@@ -161,10 +161,7 @@ function Tree () {
 			if (this.vertices[i].visible==false) continue;
 			if (this.vertices[i].name=="") text=(i+1).toString();
 			else text=this.vertices[i].name;
-			let foreignObj='<foreignObject width="' + this.svgVertices[i].width + '" height="' + this.svgVertices[i].height + '" id="textVertex' + i
-				+ '"><div class="vertex-text';
-			if (this.vertices[i].isLeaf==true) foreignObj+=" leaf-text";
-			foreignObj+=' unselectable" style="background: ' + this.vertices[i].color + '"><span>' + text + '</span></div></foreignObject>';
+			let foreignObj=makeForeignObject(this.svgVertices[i],this.vertices[i],i);
 			this.s.append(Snap.parse(foreignObj));
 			this.svgVertices[i].text=this.s.select("#textVertex"+i);
 			let transformText = "t "+this.svgVertices[i].coord[0]+" "+this.svgVertices[i].coord[1];
@@ -214,6 +211,18 @@ function Tree () {
 	}
 }
 
+function makeForeignObject (svgVertex, vertex, ind) {
+    let code = '<foreignObject width="' + svgVertex.width + '" height="' + svgVertex.height + '" id="textVertex' + ind + '">';
+    
+    code += '<div class="unselectable" style=" ';
+    code += 'font-size: 20px; overflow-wrap: break-word; border: solid 2px; border-radius: 10px; padding-left: 5px; padding-right: 5px; padding-bottom: 1px; cursor: pointer; ';
+    if (vertex.isLeaf==true) code += 'border-radius: 0px; ';
+    
+    code += 'background: orange; ' + vertex.cssProperties + '">';
+    code += '<span>' + text + '</span></div></foreignObject>';
+    return code;
+}
+
 function dfs (v, adjList, verticesData) {
 	verticesData[v].visible=false;
 	for (child of adjList[v]) {
@@ -222,7 +231,7 @@ function dfs (v, adjList, verticesData) {
 }
 
 function vertexClick (v) {
-	var child=this.adjList[v][0];
+	let child=this.adjList[v][0];
 	if (this.vertices[child].visible==true) {
 		dfs(v,this.adjList,this.vertices);
 		this.vertices[v].visible=true;
@@ -236,11 +245,11 @@ function vertexClick (v) {
 }
 
 function leafClick (v) {
-    var vertexInfo=this.vertices[v];
+    let vertexInfo=this.vertices[v];
     // better with cookies?
     get_session_data(['role']).then(data => {
         if (data.role=="student") {
-            var estimationForm = document.getElementById("popupEstimateForm");
+            let estimationForm = document.getElementById("popupEstimateForm");
             estimationForm.style.display="flex";
             document.getElementById("estimate-form-title").innerHTML="Времева оценка за изпълнение на: "+vertexInfo.name;
             document.getElementById("estimation-text").value="";
@@ -293,11 +302,54 @@ function leafClick (v) {
     });
 }
 
+function addSaveFunctionality (svgName) {
+    let parentElement=document.querySelector(svgName).parentElement;
+    let saveButton=parentElement.querySelector("#save-button");
+    let canvas=parentElement.querySelector("#canvas-save");
+    canvas.style.display="none";
+    let svgSave=parentElement.querySelector("#svg-save");
+    svgSave.style.display="none";
+    
+    saveButton.onclick = function () {
+        let context=canvas.getContext('2d');
+        let svg=parentElement.querySelector(".tree");
+        let svgWidth=svg.getBoundingClientRect().width,svgHeight=svg.getBoundingClientRect().height;
+        svgSave.setAttribute("width",svgWidth);
+        svgSave.setAttribute("height",svgHeight);
+        
+        svgSave.append(svg.cloneNode(true));
+        canvas.width=svgWidth;
+        canvas.height=svgHeight;
+
+        svgSave.style.display="";
+        let svgString=(new XMLSerializer()).serializeToString(svgSave);
+        svgSave.style.display="none";
+        
+        let image = new Image();
+        image.src="data:image/svg+xml; charset=utf8, "+encodeURIComponent(svgString);
+        image.svgSave=this.svgSave;
+        image.onload = function () {
+            context.drawImage(image,0,0);
+            let imageURI=canvas.toDataURL('image/png').replace('image/png','image/octet-stream');
+            let event = new MouseEvent('click',{view: window, bubbles: false, cancelable: true});
+            let temp=document.createElement('a');
+            temp.setAttribute('download','tree.png');
+            temp.setAttribute('href',imageURI);
+            temp.setAttribute('target','_blank');
+            temp.dispatchEvent(event);
+            while (svgSave.firstChild) {
+                svgSave.removeChild(svgSave.firstChild);
+            }
+        }
+    }
+}
+
+
 function findMaxDepth (vr, dep, adjList, verticesData) {
-	var max=dep;
+	let max=dep;
     for (child of adjList[vr]) {
 		if (verticesData[child].visible==false) continue;
-        var value=findMaxDepth(child,dep+1,adjList,verticesData);
+        let value=findMaxDepth(child,dep+1,adjList,verticesData);
         if (max<value) max=value;
     }
     return max;
@@ -305,7 +357,7 @@ function findMaxDepth (vr, dep, adjList, verticesData) {
 
 function fillVersDepth (vr, dep, maxDepth, adjList, verticesData, versDepth) {
 	if ((dep==maxDepth)||(vr!=-1)) versDepth[dep].push(vr);
-	var flagChildren=false;
+	let flagChildren=false;
     if (vr!=-1) {
         for (child of adjList[vr]) {
 			if (verticesData[child].visible==false) continue;
@@ -317,9 +369,9 @@ function fillVersDepth (vr, dep, maxDepth, adjList, verticesData, versDepth) {
 }
 
 function calcPositions (tree) {
-	var i,j,h;
+	let i,j,h;
     
-	var versDepth=[],inDegree=[],root=0;
+	let versDepth=[],inDegree=[],root=0;
 	for (i=0; i<=tree.n; i++) {
 		versDepth[i]=[];
 		inDegree[i]=0;
@@ -337,26 +389,26 @@ function calcPositions (tree) {
 		   break;
 		}
 	}
-	var maxDepth=findMaxDepth(root,0,tree.adjList,tree.vertices);
+	let maxDepth=findMaxDepth(root,0,tree.adjList,tree.vertices);
 	fillVersDepth(root,0,maxDepth,tree.adjList,tree.vertices,versDepth);
 	
-	var yDistVertices=100,y=0;
-	var heightDepth = [];
-	var maxWidth=0;
+	let yDistVertices=100,y=0;
+	let heightDepth = [];
+	let maxWidth=0;
 	for (i=0; i<=maxDepth; i++) {
 		heightDepth[i]=0;
 		for (vertex of versDepth[i]) {
 			if (vertex==-1) continue;
-			var text;
+			let text;
 			if (tree.vertices[vertex].name===undefined) text=(vertex+1).toString();
 			else text=tree.vertices[vertex].name;
-			var foreignObj='<foreignObject width="150" height="1000" id="temp"><div class="vertex-text" id="tempDiv"><span id="tempSpan">'
+			let foreignObj='<foreignObject width="150" height="1000" id="temp"><div class="vertex-text" style="' + tree.vertices[i].cssProperties + '" id="tempDiv"><span id="tempSpan">'
 				+ text + '</span></div></foreignObject>';
 			tree.s.append(Snap.parse(foreignObj));
-			var tempDiv = document.getElementById("tempDiv");
+			let tempDiv = document.getElementById("tempDiv");
 			tree.svgVertices[vertex].height=tempDiv.getBoundingClientRect().height;
 			tree.svgVertices[vertex].width=document.getElementById("tempSpan").getBoundingClientRect().width;
-			var computedStyle = window.getComputedStyle(tempDiv);
+			let computedStyle = window.getComputedStyle(tempDiv);
 			tree.svgVertices[vertex].width+=parseFloat(computedStyle.paddingLeft)+parseFloat(computedStyle.paddingRight);
 			tree.svgVertices[vertex].width+=parseFloat(computedStyle.borderLeftWidth)+parseFloat(computedStyle.borderRightWidth);
 			tree.s.select("#temp").remove();
@@ -367,19 +419,19 @@ function calcPositions (tree) {
 		}
 		if (i<maxDepth) y+=heightDepth[i]+yDistVertices;
 	}
-	var xDistVertices=20;
-	var frameW=versDepth[maxDepth].length*(maxWidth+xDistVertices)+xDistVertices;
+	let xDistVertices=20;
+	let frameW=versDepth[maxDepth].length*(maxWidth+xDistVertices);
 	document.querySelector(tree.svgName).style.height=(y+heightDepth[maxDepth]+1)+"px";
 	
-	var x,distX;
-	x=xDistVertices; distX=frameW/(versDepth[maxDepth].length);
+	let x,distX;
+	x=0; distX=frameW/(versDepth[maxDepth].length);
 	for (vertex of versDepth[maxDepth]) {
 		if (vertex!=-1) tree.svgVertices[vertex].coord=[x,y];
 		x+=distX;
 	}
-	for (i=maxDepth-1; i>=0; i--) {
+    for (i=maxDepth-1; i>=0; i--) {
 		y-=(heightDepth[i]+yDistVertices);
-		var ind=0;
+		let ind=0;
 		while (versDepth[i+1][ind]==-1) {
 			ind++;
 		}
@@ -388,7 +440,7 @@ function calcPositions (tree) {
 			   tree.svgVertices[vertex].coord=undefined;
 			   continue;
 			}
-			var sum=0,cnt=0;
+			let sum=0,cnt=0;
 			for (; ind<versDepth[i+1].length; ind++) {
 				let child=versDepth[i+1][ind];
 				if (child==-1) continue;
@@ -398,24 +450,29 @@ function calcPositions (tree) {
 			}
 			tree.svgVertices[vertex].coord=[sum/cnt,y];
 		}
-		var prevX=0;
+		let prevX=0;
 		for (j=0; j<versDepth[i].length; j++) {
 			let v=versDepth[i][j];
 			if (tree.svgVertices[v].coord!==undefined) {
 			   prevX=tree.svgVertices[v].coord[0]+tree.svgVertices[v].width+xDistVertices;
 			   continue;
 			}
-			var cnt=0,nextX=frameW;
+			let nextX=frameW;
+            let maxNeighbourW=0,cnt=0;
 			for (h=j; h<versDepth[i].length; h++) {
 				let next=versDepth[i][h];
 				if (tree.svgVertices[next].coord!==undefined) {
 				   nextX=tree.svgVertices[next].coord[0];
 				   break;
 				}
-				cnt++;
+                if (h>j) {
+                    let neighbourW=(tree.svgVertices[next].width+tree.svgVertices[versDepth[i][h-1]].width);
+                    if ((h>j)&&(maxNeighbourW<neighbourW)) maxNeighbourW=neighbourW;
+                }
+                cnt++;
 			}
-			if (cnt<=3) {
-                var x=prevX;
+            if (maxNeighbourW/2+xDistVertices<=(nextX-prevX-xDistVertices)/(cnt+1)) {
+                let x=prevX;
                 for (h=j; h<versDepth[i].length; h++) {
                     let v=versDepth[i][h];
                     if (tree.svgVertices[v].coord!==undefined) break;
@@ -424,11 +481,11 @@ function calcPositions (tree) {
                 }
             }
             else {
-                var x=prevX;
+                let x=prevX;
                 for (h=j; h<versDepth[i].length; h++) {
                     let v=versDepth[i][h];
                     if (tree.svgVertices[v].coord!==undefined) break;
-                    tree.svgVertices[v].coord=[x-tree.svgVertices[v].width/2,y];
+                    tree.svgVertices[v].coord=[x,y];
                     x+=(nextX-prevX-xDistVertices)/cnt;
                 }
             }
@@ -436,7 +493,7 @@ function calcPositions (tree) {
 		}
 	}
 	
-	var minX=frameW;
+	let minX=frameW;
 	for (i=0; i<=maxDepth; i++) {
 		for (vertex of versDepth[i]) {
 			if (vertex==-1) continue;
@@ -444,7 +501,7 @@ function calcPositions (tree) {
 			if (minX>leftX) minX=leftX;
 		}
 	}
-	var maxX=0;
+	let maxX=0;
 	for (i=0; i<=maxDepth; i++) {
 		for (vertex of versDepth[i]) {
 			if (vertex==-1) continue;
@@ -453,5 +510,5 @@ function calcPositions (tree) {
 			if (maxX<rightX) maxX=rightX;
 		}
 	}
-	document.querySelector(tree.svgName).style.width=maxX+"px";
+	document.querySelector(tree.svgName).style.width=maxX+1+"px";
 }
