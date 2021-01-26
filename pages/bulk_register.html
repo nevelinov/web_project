@@ -25,7 +25,7 @@
 		<div class="register">
             <form class="forms" id="bulk-register" onsubmit="event.preventDefault();">
                 <h1>Регистриране на много потребителители</h1>		
-                <textarea type="text" name="bulk-register" rows="5" placeholder="CSV формат: потребителско име, парола, име..."></textarea>		
+                <textarea type="text" id="register-data" name="bulk-register" rows="5" placeholder="CSV формат: потребителско име, парола, име..."></textarea>		
                 <input class="submit-button" id="bulk-register-button" type="submit" value="Регистрация на потребителите" />
             </form>
             <form class="forms" id="regist-one" onsubmit="event.preventDefault();">
@@ -43,7 +43,7 @@
                         <label for="teacher">Teacher</label>
                     </div>
                 </div>
-                <input class="submit-button" id="register-one-submit-button" type="submit" onclick="closeForm('popupRegForm')" value ="Регистрация" />
+                <input class="submit-button" id="register-one-submit-button" type="submit" value ="Регистрация" />
             </form>
         </div>	
 	</main>

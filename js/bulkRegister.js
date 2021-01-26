@@ -43,6 +43,43 @@ async function onBulkRegister() {
     document.getElementById('register-data').value = '';
 }
 
+async function onOneRegister() {
+    let username = document.getElementById('register-one-username').value;
+    let password = document.getElementById('register-one-password').value;
+    let name = document.getElementById('register-one-name').value;
+    let roles = document.getElementsByName('register-one-role');
+    let role = (roles[0].checked) ? 'student' : 'teacher';
+
+    user = {username, password, name, role};
+    let result = await registerUser(user);
+    if (result.success === true) {
+        alert('Потребителят е регистриран успешно!');
+    } else {
+        alert('Проблем при регистрацията на потребителя, моля погледнете в лога!');
+        console.log(result.errors);
+    }
+    
+}
+
+async function onOneRegisterPopup() {
+    let username = document.getElementById('register-one-popup-username').value;
+    let password = document.getElementById('register-one-popup-password').value;
+    let name = document.getElementById('register-one-popup-name').value;
+    let roles = document.getElementsByName('register-one-popup-role');
+    let role = (roles[0].checked) ? 'student' : 'teacher';
+    
+
+    user = {username, password, name, role};
+    let result = await registerUser(user);
+    if (result.success === true) {
+        alert('Потребителят е регистриран успешно!');
+    } else {
+        alert('Проблем при регистрацията на потребителя, моля погледнете в лога!');
+        console.log(result.errors);
+    }
+
+}
+
 // post register request
 async function registerUser(user) {
     let requestBody = new FormData();
@@ -65,12 +102,17 @@ window.onload = function() {
     fetch('../php/getLoginStatus.php')
         .then(response => response.json())
         .then(loginResponse => {
-            if (!loginResponse.logged || loginResponse.role != 'admin') {
-                document.location = '../pages/login.html';
-        }
-    });
+                if (!loginResponse.logged || loginResponse.role != 'admin') {
+                    document.location = '../pages/login.html';
+                }
+            });
  
-    // register bulk register handler
-    let bulkRegisterBtn = document.getElementById('bulk-register-btn');
+    // register register handler
+    let oneRegisterBth = document.getElementById('register-one-submit-button');
+    let oneRegisterBthPopup = document.getElementById('register-one-popup-submit-button');
+    let bulkRegisterBtn = document.getElementById('bulk-register-button');
+
+    oneRegisterBth.addEventListener('click', onOneRegister);
+    oneRegisterBthPopup.addEventListener('click', onOneRegisterPopup);
     bulkRegisterBtn.addEventListener('click', onBulkRegister);
 }
