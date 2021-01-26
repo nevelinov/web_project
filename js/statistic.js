@@ -35,6 +35,9 @@ function drawAndCalc (tree) {
                     }
                 }
             }
+            for (let i=0; i<tree.n; i++) {
+                if (cnt[i]>1) sums[i]/=cnt[i];
+            }
             fillSums(0,tree.adjList,sums);
             
             for (let i=0; i<tree.n; i++) {

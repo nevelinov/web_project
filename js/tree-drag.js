@@ -40,6 +40,17 @@ function dragFinish (vertex) {
                 }
             }
             this.fillAdjListAndMatrix();
+            let children = [];
+            for (let i=0; i<this.n; i++) {
+                children[i]=0;
+            }
+            for (let edge of this.edgeList) {
+                children[edge[0]]++;
+            }
+            for (let i=0; i<this.n; i++) {
+                if (children[i]>0) this.vertices[i].isLeaf=false;
+                else this.vertices[i].isLeaf=true;
+            }
             this.draw(true);
             return ;
         }
