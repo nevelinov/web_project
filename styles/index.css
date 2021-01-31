@@ -59,3 +59,13 @@ header > h2 {
   color: snow;
   cursor: pointer;
 }
+
+#logged-user {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  font-size: 19px;
+  text-align: center;
+  font-weight: bold;
+  color: #0027ff;
+}
