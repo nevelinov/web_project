@@ -38,7 +38,7 @@
 			<svg id="svg-save"></svg>
 			<canvas id="canvas-save"></canvas>
 		</div>
-		<a class="nav-button" id="save-button" href="">Save tree in .png</a>
+		<a class="nav-button" id="save-button">Save tree in .png</a>
 	</main>
 
 	<div class="flex-div" id="popupEstimateForm" onclick='showMessage(event, "popupEstimateForm")' ondblclick='closeForm(event, "popupEstimateForm")'>
@@ -110,6 +110,15 @@
 			</div>
 			<input class="submit-button" id="more-time-submit-button" type="submit" value ="Добави" />
 		</form>
+	</div>
+
+	<div class="error-div" id="show-me-errors" onclick='closeForm(event, "show-me-errors")'>
+		<div class="errors" id="list-errors">
+			<h2>ERRORS:</h2>
+			<ul id="errors-list">
+
+			</ul>
+		</div>
 	</div>
 
 	<span id="notify">Double click to exit</span>
