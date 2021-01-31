@@ -10,7 +10,8 @@ body {
   flex-direction: column;
 }
 
-.flex-div {
+.flex-div,
+.error-div {
   display: none;
   top: 0px;
   left: 0px;
@@ -20,11 +21,35 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.flex-div {
   /* background-color: #1ce5ff80;
   background-color: #6fedfd96; */
   background-color: #6fedfdd6;
+}
 
-  flex-direction: column;
+.error-div {
+  background-color: #ff000080;
+}
+
+.errors {
+  min-width: 333px;
+  max-width: 333px;
+  min-height: 222px;
+  max-height: 222px;
+  border: solid 3px red ;
+  border-radius: 11px;
+  background-color: #ffb8b8;
+}
+
+.errors > h2 {
+  color: red;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin: 13px;
 }
 
 #more-info,
