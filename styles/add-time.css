@@ -1,0 +1,23 @@
+#more-time-reason {
+    width: 85%;
+    resize: none;
+}
+
+.more-time-value {
+  display: flex;
+  width: 85%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#more-time-hours {
+  width: 33%;
+}
+
+#more-time-time-value {
+  width: 70%;
+}
+
+#more-time-submit-button {
+  height: 49.34px;
+}

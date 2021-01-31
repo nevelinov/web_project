@@ -204,7 +204,10 @@ function Tree () {
             for (let i=0; i<this.n; i++) {
                 if (this.vertices[i].visible==false) continue;
                 if (this.vertices[i].isLeaf==true) this.svgVertices[i].text.click(leafClick.bind(this,i));
-                else this.svgVertices[i].text.click(vertexClick.bind(this,i));
+				else {
+					this.svgVertices[i].text.click(vertexClick.bind(this,i)); 
+					// this.svgVertices[i].text.dblclick(vertexAddTime.bind(this,i));
+				}
             }
         }
 		else this.addDrag();
@@ -244,6 +247,23 @@ function vertexClick (v) {
 	this.draw(false);
 }
 
+//to do on double click or something like that
+function vertexAddTime (v) {
+	get_session_data(['role']).then(data => {
+        if (data.role=="admin") {
+			let moreTimeForm = document.getElementById("popupMoreTimeForm");
+            moreTimeForm.style.display="flex";
+			document.getElementById("more-time-reason").value="";
+            document.getElementById("more-time-time-value").value="0.5";
+            document.getElementById("more-time-submit-button").onclick = function (event) {
+                event.preventDefault();
+                postMoreTime(vertexInfo);
+                moreTimeForm.style.display="none";
+            }
+		}
+    });
+}
+
 function leafClick (v) {
     let vertexInfo=this.vertices[v];
     // better with cookies?
@@ -251,7 +271,7 @@ function leafClick (v) {
         if (data.role=="student") {
             let estimationForm = document.getElementById("popupEstimateForm");
             estimationForm.style.display="flex";
-            document.getElementById("estimate-form-title").innerHTML="Времева оценка за изпълнение на: "+vertexInfo.name;
+            document.getElementById("est-title").innerHTML=vertexInfo.name;
             document.getElementById("estimation-text").value="";
             document.getElementById("est-value").value="6";
             document.getElementById("estimate-submit-button").onclick = function (event) {
@@ -260,9 +280,9 @@ function leafClick (v) {
                 estimationForm.style.display="none";
             }
         }
-        else {
-            document.getElementById("popupPriorityForm").style.display="flex";
-            document.getElementById("priority-form-title").innerHTML="Вярно ли е оценена задача "+vertexInfo.name+"?";
+        else if (data.role=="teacher"){
+			document.getElementById("popupPriorityForm").style.display="flex";
+            document.getElementById("prior-title").innerHTML=vertexInfo.name;
             document.getElementById("slider").value=1;
             
             getEstimations().then(estimations => {
@@ -298,13 +318,23 @@ function leafClick (v) {
                     postPriority(vertexInfo);
                 }   
             });
-        }
+        } else {
+			let moreTimeForm = document.getElementById("popupMoreTimeForm");
+            moreTimeForm.style.display="flex";
+			document.getElementById("more-time-reason").value="";
+            document.getElementById("more-time-time-value").value="0.5";
+            document.getElementById("more-time-submit-button").onclick = function (event) {
+                event.preventDefault();
+                postMoreTime(vertexInfo);
+                moreTimeForm.style.display="none";
+            }
+		}
     });
 }
 
 function addSaveFunctionality (svgName) {
     let parentElement=document.querySelector(svgName).parentElement;
-    let saveButton=parentElement.querySelector("#save-button");
+    let saveButton=document.getElementById("save-button");
     let canvas=parentElement.querySelector("#canvas-save");
     canvas.style.display="none";
     let svgSave=parentElement.querySelector("#svg-save");

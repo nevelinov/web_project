@@ -20,7 +20,19 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: #1ce5ff80;
+  /* background-color: #1ce5ff80;
+  background-color: #6fedfd96; */
+  background-color: #6fedfdd6;
+
+  flex-direction: column;
+}
+
+.titles {
+  color: red;
+  font-size: 50px;
+  margin: 0px 0px 20px 0px;
+  text-align: center;
+
 }
 
 .forms {
@@ -129,6 +141,18 @@ textarea {
 #notify {
   -webkit-animation: fade 0.3s;
   animation: fade 0.3s;
+}
+
+.unselectable,
+h1,
+h2,
+a,
+p,
+input {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @-webkit-keyframes fade {
