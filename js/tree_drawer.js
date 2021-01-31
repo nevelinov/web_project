@@ -12,6 +12,7 @@ function Vertex () {
 		this.isLeaf=isLeaf;
 		this.cssProperties=cssProperties;
 		this.visible=true;
+        this.moreInfo="https://github.com";
 	}
 }
 
@@ -289,7 +290,7 @@ function leafClick (v) {
         else if (data.role=="teacher"){
 			document.getElementById("popupPriorityForm").style.display="flex";
 			const link = document.getElementById("more-info");
-			link.href = vertexInfo.moreInfo ? vertexInfo.moreInfo : "https://github.com/";
+			link.href = vertexInfo.moreInfo;
             document.getElementById("prior-title").innerHTML=vertexInfo.name;
             document.getElementById("slider").value=1;
             
