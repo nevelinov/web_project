@@ -27,12 +27,19 @@ body {
   flex-direction: column;
 }
 
+#more-info,
+#more-info:link,
+#more-info:visited,
+#more-info:hover,
+#more-info:active {
+  text-decoration: none;
+}
+
 .titles {
   color: red;
   font-size: 50px;
   margin: 0px 0px 20px 0px;
   text-align: center;
-
 }
 
 .forms {

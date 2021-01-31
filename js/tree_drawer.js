@@ -270,7 +270,9 @@ function leafClick (v) {
     get_session_data(['role']).then(data => {
         if (data.role=="student") {
             let estimationForm = document.getElementById("popupEstimateForm");
-            estimationForm.style.display="flex";
+			estimationForm.style.display="flex";
+			const link = document.getElementById("more-info");
+			link.href = vertexInfo.moreInfo ? vertexInfo.moreInfo : "https://github.com/";
             document.getElementById("est-title").innerHTML=vertexInfo.name;
             document.getElementById("estimation-text").value="";
             document.getElementById("est-value").value="6";
@@ -282,6 +284,8 @@ function leafClick (v) {
         }
         else if (data.role=="teacher"){
 			document.getElementById("popupPriorityForm").style.display="flex";
+			const link = document.getElementById("more-info");
+			link.href = vertexInfo.moreInfo ? vertexInfo.moreInfo : "https://github.com/";
             document.getElementById("prior-title").innerHTML=vertexInfo.name;
             document.getElementById("slider").value=1;
             
