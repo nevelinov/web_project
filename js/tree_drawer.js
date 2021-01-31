@@ -4,6 +4,7 @@ function Vertex () {
 	this.isLeaf=undefined;
 	this.cssProperties=undefined;
 	this.visible=undefined;
+    this.moreInfo=undefined;
 	
 	this.init = function (id, name, isLeaf, cssProperties) {
         this.id=id;
@@ -94,11 +95,14 @@ function Tree () {
         }
 		for (let i=0; i<this.n; i++) {
 			if ((this.svgVertices[i]!==undefined)&&(this.svgVertices[i].text!==undefined)) {
-				this.svgVertices[i].text.remove();
-				if (this.svgVertices[i].visible==true) {
+                if (this.svgVertices[i].visible==true) {
                     if (this.svgVertices[i].isLeaf==true) this.svgVertices[i].text.unclick(leafClick);
-                    else this.svgVertices[i].text.unclick(vertexClick);
+                    else {
+                        this.svgVertices[i].text.unclick(vertexClick);
+                        document.getElementById("textVertex"+i).removeEventListener("contextmenu",vertexAddTime);
+                    }
                 }
+                this.svgVertices[i].text.remove();
 			}
         }
 	}
@@ -205,9 +209,9 @@ function Tree () {
                 if (this.vertices[i].visible==false) continue;
                 if (this.vertices[i].isLeaf==true) this.svgVertices[i].text.click(leafClick.bind(this,i));
 				else {
-					this.svgVertices[i].text.click(vertexClick.bind(this,i)); 
-					// this.svgVertices[i].text.dblclick(vertexAddTime.bind(this,i));
-				}
+					this.svgVertices[i].text.click(vertexClick.bind(this,i));
+                    document.getElementById("textVertex"+i).addEventListener("contextmenu",vertexAddTime.bind(this,i));
+                }
             }
         }
 		else this.addDrag();
@@ -247,9 +251,9 @@ function vertexClick (v) {
 	this.draw(false);
 }
 
-//to do on double click or something like that
-function vertexAddTime (v) {
-	get_session_data(['role']).then(data => {
+function vertexAddTime (v, event) {
+    event.preventDefault();
+    get_session_data(['role']).then(data => {
         if (data.role=="admin") {
 			let moreTimeForm = document.getElementById("popupMoreTimeForm");
             moreTimeForm.style.display="flex";
