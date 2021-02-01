@@ -5,7 +5,7 @@
         <title>Регистрация</title>
         <script defer type="text/javascript" src="../js/bulkRegister.js"></script>
         <script defer type="text/javascript" src="../js/open-close.js"></script>
-        <script defer type="text/javascript" src="../js/error.js"></script>
+        <script defer type="text/javascript" src="../js/successAndError.js"></script>
 		<script defer type="text/javascript" src="../js/setup.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="../styles/global-styles.css">
@@ -69,10 +69,19 @@
 		</form>
   </div>
   
-  <div class="error-div" id="show-me-errors" onclick='closeForm(event, "show-me-errors")'>
+  <div class="errors-div" id="show-me-errors" onclick='closeForm(event, "show-me-errors")'>
 		<div class="errors" id="list-errors">
 			<h2>ERRORS:</h2>
 			<ul id="errors-list">
+
+			</ul>
+		</div>
+  </div>
+  
+  <div class="success-div" id="show-me-success" onclick='closeForm(event, "show-me-success")'>
+		<div class="success" id="list-success">
+			<h2>SUCCESS:</h2>
+			<ul id="success-list">
 
 			</ul>
 		</div>

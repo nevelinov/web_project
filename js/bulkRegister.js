@@ -7,7 +7,8 @@ async function onBulkRegister() {
     for(user of registerData.split('\n')) {
         userData = user.split(',');
         if (userData.length < 3) {
-            alert('Unvalid csv data!');
+            //alert('Unvalid csv data!');
+            myErrors(["Невалидни данни или неправилен формат"]);
             return;
         }
         user = {
@@ -23,7 +24,7 @@ async function onBulkRegister() {
     // stop on error
     let lastRegisteredUser = null;
     for(user of users) {
-        console.log("try to register user: ", user);
+        //console.log("try to register user: ", user);
 
         let registered = await registerUser(user);
         if (registered.success === true) {
@@ -31,15 +32,16 @@ async function onBulkRegister() {
         } else {
             if (lastRegisteredUser != null) {
                 //console.log(registered.errors);
-                myErrors(["Грешка при регистрация на потребител", `Последно регистриран: ${lastRegisteredUser.username}`]);
+                myErrors([`Последно бе регистриран: ${lastRegisteredUser.username}`, "Грешка при регистрация на следващия потребител", registered.errors.reason]);
             } else {
-                //console.log(registered.errors);
-                myErrors(["Грешка при регистрация на потребител"]);
+                console.log(registered.errors.reason);
+                myErrors(["Грешка при регистрация още при 1вия потребител", registered.errors.reason]);
             }
             return;
         };
     }
-    alert("Потребителите са успешно регистрирани!")
+    //alert("Потребителите са успешно регистрирани!")
+    mySuccess(["Потребителите са успешно регистрирани!"])
     document.getElementById('register-data').value = '';
 }
 
@@ -53,10 +55,12 @@ async function onOneRegister() {
     user = {username, password, name, role};
     let result = await registerUser(user);
     if (result.success === true) {
-        alert('Потребителят е регистриран успешно!');
+        //alert('Потребителят е регистриран успешно!');
+        mySuccess(["Потребителят е успешно регистриран!"])
     } else {
-        alert('Проблем при регистрацията на потребителя, моля погледнете в лога!');
-        console.log(result.errors);
+        //alert('Проблем при регистрацията на потребителя, моля погледнете в лога!');
+        //console.log(result.errors);
+        myErrors(["Грешка при регистрация на потребител", result.errors.reason]);
     }
     
 }
@@ -72,10 +76,12 @@ async function onOneRegisterPopup() {
     user = {username, password, name, role};
     let result = await registerUser(user);
     if (result.success === true) {
-        alert('Потребителят е регистриран успешно!');
+        //alert('Потребителят е регистриран успешно!');
+        mySuccess(["Потребителят е успешно регистриран!"])
     } else {
-        alert('Проблем при регистрацията на потребителя, моля погледнете в лога!');
-        console.log(result.errors);
+        //alert('Проблем при регистрацията на потребителя, моля погледнете в лога!');
+        //console.log(result.errors);
+        myErrors(["Грешка при регистрация на потребител", result.errors.reason]);
     }
 
 }

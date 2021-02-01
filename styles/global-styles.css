@@ -11,7 +11,8 @@ body {
 }
 
 .flex-div,
-.error-div {
+.errors-div,
+.success-div {
   display: none;
   top: 0px;
   left: 0px;
@@ -30,22 +31,39 @@ body {
   background-color: #6fedfdd6;
 }
 
-.error-div {
+.errors-div {
   background-color: #ff000080;
 }
 
-.errors {
+.success-div {
+  background-color: #00ff0080;
+}
+
+.errors, 
+.success {
   min-width: 333px;
   max-width: 333px;
   min-height: 222px;
   max-height: 222px;
-  border: solid 3px red ;
   border-radius: 11px;
-  background-color: #ffb8b8;
 }
 
-.errors > h2 {
+.errors {
+  border: solid 3px red ;
+  background-color: #ffb8b8;
+
   color: red;
+}
+
+.success {
+  border: solid 3px green ;
+  background-color: #b8ffb8;
+
+  color: green;
+}
+
+.errors > h2, 
+.success > h2 {
   font-size: 36px;
   font-weight: bold;
   text-align: center;
