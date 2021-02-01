@@ -67,3 +67,9 @@ function postEstimation(vertexInfo) {
         }
     });
 }
+
+// add more time to component
+function postMoreTime(vertexInfo) {
+    //to do
+    console.log("addtime");
+}

@@ -17,6 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="styles/index.css">
 		<link rel="stylesheet" type="text/css" href="styles/estimate.css">
 		<link rel="stylesheet" type="text/css" href="styles/priority.css">
+		<link rel="stylesheet" type="text/css" href="styles/add-time.css">
         
 		<title>ОЦЕНЯВАНЕ СЛОЖНОСТ НА ПРОЕКТИ</title>
     </head>
@@ -35,12 +36,13 @@
 		<div class="tree-wrapper">
 			<svg class="tree" onmousedown="return false"></svg>
 			<svg id="svg-save"></svg>
-			<button class="nav-button" id="save-button" style="float: right"> Save </button>
 			<canvas id="canvas-save"></canvas>
 		</div>
+		<a class="nav-button" id="save-button">Save tree in .png</a>
 	</main>
 
 	<div class="flex-div" id="popupEstimateForm" onclick='showMessage(event, "popupEstimateForm")' ondblclick='closeForm(event, "popupEstimateForm")'>
+		<a id="more-info" target="_blank"><p class="titles" id="est-title"></p></a>
 		<form class="forms" id="estimate-form" method="POST">
 			<h1 id="estimate-form-title">Времева оценка</h1>
 			<div class="estimation-text">
@@ -59,6 +61,7 @@
 	</div>
 
 	<div class="flex-div" id="popupPriorityForm" onclick='showMessage(event, "popupPriorityForm")' ondblclick='closeForm(event, "popupPriorityForm")'>
+		<a id="more-info" target="_blank"><p class="titles" id="prior-title"></p></a>
 		<form class="forms" id="priority-form" method="POST">
 			<h1 id="priority-form-title">Вярно ли е оценена задачата?</h1>
 			<div class="estimation-info">
@@ -94,10 +97,34 @@
 		</form>
 	</div>
 
+	<div class="flex-div" id="popupMoreTimeForm" onclick='showMessage(event, "popupMoreTimeForm")' ondblclick='closeForm(event, "popupMoreTimeForm")'>
+		<form class="forms" id="more-time-form" method="POST">
+			<h1 id="more-time-form-title">Допънително време към компонент</h1>
+			<textarea type="text" name="more-time-text" id="more-time-reason" rows="5" placeholder="Обосновка за добавянето на допълнително време..." ></textarea>
+			<div class="more-time-value">
+				<label for="more-time-time-value">Време</label>
+				<div id="more-time-hours">
+					<input type="number" id="more-time-time-value" name="more-time-value" step="0.5" min="0.5" value="6" />
+					<label for="more-time-time-value">h</label>
+				</div>
+			</div>
+			<input class="submit-button" id="more-time-submit-button" type="submit" value ="Добави" />
+		</form>
+	</div>
+
+	<div class="error-div" id="show-me-errors" onclick='closeForm(event, "show-me-errors")'>
+		<div class="errors" id="list-errors">
+			<h2>ERRORS:</h2>
+			<ul id="errors-list">
+
+			</ul>
+		</div>
+	</div>
+
 	<span id="notify">Double click to exit</span>
 
 	<footer>
-	
+		<p id="logged-user">You are logged as ... </p>
     </footer>
   </body>
 </html>

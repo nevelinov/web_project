@@ -10,19 +10,21 @@
 		<script defer type="text/javascript" src="../js/tree_drawer.js"></script>
 		<script defer type="text/javascript" src="../js/tree-drag.js"></script>
 		<script defer type="text/javascript" src="../js/setup.js"></script>
+		<script defer type="text/javascript" src="../js/open-close.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="../styles/tree_visualisation.css"  media="screen,projection"/>
 		<link rel="stylesheet" type="text/css" href="../styles/global-styles.css">
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
+		<link rel="stylesheet" type="text/css" href="../styles/setup.css">
     </head>
   
   <body onload="makeTree(true)">
     <header>
 		<h2>НАСТРОЙВАНЕ НА ПЛАТФОРМАТА</h2>
 		<div class="button-group">
-			<a class="nav-button" href="">IMPORT</a>
-			<a class="nav-button" href="">EXPORT</a>
-			<a class="nav-button" href="bulk_register.html">REGISTER</a>
+			<a class="nav-button" id="regist-one-button" onclick='openForm("popupImportCSVTreeForm")'>IMPORT CSV</a>
+			<a class="nav-button" href="">EXPORT CSV</a>
+			<a class="nav-button" href="bulk_register.html">REGISTER USERS</a>
 			<a class="nav-button" id="back-button" href="../index.html">BACK</a>
 		</div>
     </header>
@@ -31,13 +33,23 @@
 		<div class="tree-wrapper">
 			<svg class="tree" onmousedown="return false"></svg>
 			<svg id="svg-save"></svg>
-			<button class="nav-button" id="save-button" style="float: right"> Save </button>
 			<canvas id="canvas-save"></canvas>
 		</div>
+		<a class="nav-button" id="save-button">Save tree in .png</a>
 	</main>
 
+	<div class="flex-div" id="popupImportCSVTreeForm" onclick='showMessage(event, "popupImportCSVTreeForm")' ondblclick='closeForm(event, "popupImportCSVTreeForm")'>
+		<form class="forms" id="import-tree" onsubmit="event.preventDefault();">
+			<h1>Вмъкване на дърво</h1>		
+			<textarea type="text" id="tree-data" name="tree-data" placeholder="CSV формат: ..."></textarea>		
+			<input class="submit-button" id="import-tree-button" type="submit" onclick="closeForm('popupImportCSVTreeForm')" value="Вмъкни дървото" />
+		</form>
+	</div>
+
+	<span id="notify">Double click to exit</span>
+
 	<footer>
-	
+		<p id="logged-user">You are logged as ... </p>
     </footer>
   </body>
 </html>

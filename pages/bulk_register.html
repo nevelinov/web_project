@@ -5,7 +5,8 @@
         <title>Регистрация</title>
         <script defer type="text/javascript" src="../js/bulkRegister.js"></script>
         <script defer type="text/javascript" src="../js/open-close.js"></script>
-        <script defer type="text/javascript" src="../js/setup.js"></script>
+        <script defer type="text/javascript" src="../js/error.js"></script>
+		<script defer type="text/javascript" src="../js/setup.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="../styles/global-styles.css">
 		<link rel="stylesheet" type="text/css" href="../styles/index.css">
@@ -66,12 +67,21 @@
 			</div>
 			<input class="submit-button" id="register-one-popup-submit-button" type="submit" onclick="closeForm('popupRegForm')" value ="Регистрация" />
 		</form>
+  </div>
+  
+  <div class="error-div" id="show-me-errors" onclick='closeForm(event, "show-me-errors")'>
+		<div class="errors" id="list-errors">
+			<h2>ERRORS:</h2>
+			<ul id="errors-list">
+
+			</ul>
+		</div>
 	</div>
 
 	<span id="notify">Double click to exit</span>
 
 	<footer>
-	
+		<p id="logged-user">You are logged as ... </p>
     </footer>
   </body>
 </html>

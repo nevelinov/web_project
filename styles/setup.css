@@ -1,0 +1,24 @@
+#import-tree {
+    width: 55%;
+    height: 77%;
+    min-width: 350px;
+    max-width: 600px;
+    min-height: 450px;
+    max-height: 650px;
+}
+
+#tree-data {
+    width: 80%;
+    height: 69%;
+    resize: none;
+}
+
+#tree-data:hover,
+#tree-data:focus {
+  border: solid 3px #02a16a;
+  background-color: #efefef;
+}
+
+#import-tree-button {
+    height: 55px;
+}

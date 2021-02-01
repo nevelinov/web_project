@@ -10,7 +10,8 @@ body {
   flex-direction: column;
 }
 
-.flex-div {
+.flex-div,
+.error-div {
   display: none;
   top: 0px;
   left: 0px;
@@ -20,7 +21,50 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: #1ce5ff80;
+  flex-direction: column;
+}
+
+.flex-div {
+  /* background-color: #1ce5ff80;
+  background-color: #6fedfd96; */
+  background-color: #6fedfdd6;
+}
+
+.error-div {
+  background-color: #ff000080;
+}
+
+.errors {
+  min-width: 333px;
+  max-width: 333px;
+  min-height: 222px;
+  max-height: 222px;
+  border: solid 3px red ;
+  border-radius: 11px;
+  background-color: #ffb8b8;
+}
+
+.errors > h2 {
+  color: red;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin: 13px;
+}
+
+#more-info,
+#more-info:link,
+#more-info:visited,
+#more-info:hover,
+#more-info:active {
+  text-decoration: none;
+}
+
+.titles {
+  color: red;
+  font-size: 50px;
+  margin: 0px 0px 20px 0px;
+  text-align: center;
 }
 
 .forms {
@@ -129,6 +173,18 @@ textarea {
 #notify {
   -webkit-animation: fade 0.3s;
   animation: fade 0.3s;
+}
+
+.unselectable,
+h1,
+h2,
+a,
+p,
+input {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @-webkit-keyframes fade {

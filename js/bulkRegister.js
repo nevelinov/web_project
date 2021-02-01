@@ -30,11 +30,11 @@ async function onBulkRegister() {
             lastRegisteredUser = user;
         } else {
             if (lastRegisteredUser != null) {
-                console.log(registered.errors);
-                alert("Грешка, погледнете в лога. Последно регистриран потребител: " + lastRegisteredUser.username)
+                //console.log(registered.errors);
+                myErrors(["Грешка при регистрация на потребител", `Последно регистриран: ${lastRegisteredUser.username}`]);
             } else {
-                console.log(registered.errors);
-                alert("Грешка, погледнете в лога.");
+                //console.log(registered.errors);
+                myErrors(["Грешка при регистрация на потребител"]);
             }
             return;
         };
