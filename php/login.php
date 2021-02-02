@@ -21,6 +21,7 @@ $response['success'] = false;
 if ($loginSuccessful) {
     $_SESSION['username'] = $loggedUser['username'];
     $_SESSION['role'] = $loggedUser['role'];
+    $_SESSION['root_node_id'] = $loggedUser['root_node_id'];
     $response['success'] = true;
     http_response_code(200);
     echo json_encode($response);

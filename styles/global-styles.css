@@ -70,11 +70,11 @@ body {
   margin: 13px;
 }
 
-#more-info,
-#more-info:link,
-#more-info:visited,
-#more-info:hover,
-#more-info:active {
+.more-info,
+.more-info:link,
+.more-info:visited,
+.more-info:hover,
+.more-info:active {
   text-decoration: none;
 }
 

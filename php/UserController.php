@@ -23,8 +23,8 @@ class UserController {
             $connection = (new Db())->getConnection();
 
             $insertStatement = $connection->prepare("
-                INSERT INTO `users` (username, password, name, role)
-                    VALUES (:username, :password, :name, :role)
+                INSERT INTO `users` (username, password, name, role, root_node_id)
+                    VALUES (:username, :password, :name, :role, :root_node_id)
             ");
 
             $result = $insertStatement->execute($newUserRequest->toArray());

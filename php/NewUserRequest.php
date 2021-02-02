@@ -10,6 +10,7 @@ class NewUserRequest {
     private string $password;
     private string $name;
     private string $role;
+    private int $root_node_id;
 
     /**
      * Constructs a request object from associative array
@@ -20,6 +21,7 @@ class NewUserRequest {
         $this->password = isset($userData["password"]) ? $userData["password"] : "";
         $this->name = isset($userData["name"]) ? $userData["name"] : "";
         $this->role = isset($userData["role"]) ? $userData["role"] : "";
+        $this->root_node_id = isset($userData["root_node_id"]) ? $userData["root_node_id"] : "";
     }
 
     /**
@@ -63,6 +65,7 @@ class NewUserRequest {
             'password' => $this->generateHashedPassword(),
             'name' => $this->name,
             'role' => $this->role,
+            'root_node_id' => $this->root_node_id
         ];
     }
 

@@ -4,15 +4,17 @@ function Vertex () {
 	this.isLeaf=undefined;
 	this.cssProperties=undefined;
 	this.visible=undefined;
-    this.moreInfo=undefined;
+    this.url=undefined;
+    this.added_time=undefined;
 	
-	this.init = function (id, name, isLeaf, cssProperties) {
+	this.init = function (id, name, isLeaf, cssProperties, url, added_time) {
         this.id=id;
 		this.name=name;
 		this.isLeaf=isLeaf;
 		this.cssProperties=cssProperties;
 		this.visible=true;
-        this.moreInfo="https://github.com";
+        this.url=url;
+        this.added_time=added_time;
 	}
 }
 
@@ -76,18 +78,51 @@ function Tree () {
         }
     }
 	
-	this.addTreeData = function (treeData) {
+	this.addTreeData = async function (treeData) {
 		// format of array treeData is in the database format
 		for (let i=0; i<this.n; i++) {
-			this.vertices[treeData[i].nodeId].init(treeData[i].nodeId,treeData[i].text,treeData[i].isLeaf,treeData[i].properties);
+            this.vertices[treeData[i].nodeId].init(
+                treeData[i].nodeId,
+                treeData[i].text,
+                treeData[i].isLeaf,
+                treeData[i].properties,
+                treeData[i].url,
+                treeData[i].added_time
+            );
 		}
-		
-		for (let i=0; i<this.n; i++) {
-			if (treeData[i].parentNodeId==-1) continue;
-			this.vertices[treeData[i].nodeId].visible=false;
-			this.edgeList.push([treeData[i].parentNodeId,treeData[i].nodeId]);
-		}
-		this.fillAdjListAndMatrix();
+		await get_session_data(["root_node_id"]).then(data => {
+            for (let i=0; i<this.n; i++) {
+                if (treeData[i].parentNodeId==-1) continue;
+                this.vertices[treeData[i].nodeId].visible=false;
+                this.edgeList.push([treeData[i].parentNodeId,treeData[i].nodeId]);
+            }
+            this.fillAdjListAndMatrix();
+            
+            let colourful = [];
+            for (let i=0; i<this.n; i++) {
+                colourful[i]=false;
+            }
+            let v=data.root_node_id;
+            while (v!=-1) {
+                colourful[v]=true;
+                this.vertices[v].visible=true;
+                v=treeData[v].parentNodeId;
+            }
+            let dfs = [];
+            dfs.push(data.root_node_id);
+            while (dfs.length>0) {
+                let v=dfs[dfs.length-1]; dfs.pop();
+                colourful[v]=true;
+                for (let to of this.adjList[v]) {
+                    dfs.push(to);
+                }
+            }
+            for (let i=0; i<this.n; i++) {
+                if (colourful[i]==false) {
+                   this.vertices[i].cssProperties+="background: grey; color: white; border-color: black";
+                }
+            }
+        });
 	}
 	
 	this.erase = function () {
@@ -107,6 +142,22 @@ function Tree () {
 			}
         }
 	}
+    
+    this.exportCSV = function () {
+        let parent = [];
+        parent[0]=-1;
+        for (let edge of this.edgeList) {
+            parent[edge[1]]=edge[0];
+        }
+        let csv = "";
+        for (let i=0; i<this.n; i++) {
+            csv += i + "," + parent[i] + "," + this.vertices[i].name + "," +
+                this.vertices[i].isLeaf + "," + this.vertices[i].url + "," +
+                this.vertices[i].added_time + "," + this.vertices[i].cssProperties;
+            csv += "\n";
+        }
+        console.log(csv);
+    }
 	
 	this.draw = function (addDrag) {
         // If addDrag is true than we are at setup page, so no click events for vertices and vice versa

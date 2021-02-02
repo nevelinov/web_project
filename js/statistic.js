@@ -1,8 +1,8 @@
 function makeTreeAndCalc () {
-    getNodes("other").then( nodes => {
+    getNodes("other").then(async nodes => {
         var tree = new Tree();
         tree.init(".tree",nodes.length);
-        tree.addTreeData(nodes);
+        await tree.addTreeData(nodes);
         window.onresize = drawAndCalc(tree);
     });
 }
@@ -37,6 +37,7 @@ function drawAndCalc (tree) {
             }
             for (let i=0; i<tree.n; i++) {
                 if (cnt[i]>1) sums[i]/=cnt[i];
+                sums[i]+=tree.vertices[i].added_time;
             }
             fillSums(0,tree.adjList,sums);
             

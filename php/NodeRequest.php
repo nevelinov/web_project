@@ -11,6 +11,7 @@ class NodeRequest {
     private string $text;
     private bool $isLeaf;
     private string $url;
+    private float $added_time;
     private string $properties;
 
 
@@ -24,6 +25,7 @@ class NodeRequest {
         $this->text = isset($nodeData["text"]) ? $nodeData["text"] : "";
         $this->isLeaf = isset($nodeData["is_leaf"]) ? boolval($nodeData["is_leaf"]) : "";
         $this->url = isset($nodeData["url"]) ? $nodeData["url"] : "";
+        $this->added_time = isset($nodeData["added_time"]) ? $nodeData["added_time"] : "";
         $this->properties = isset($nodeData["properties"]) ? $nodeData["properties"] : "";
     }
 
@@ -64,6 +66,7 @@ class NodeRequest {
             'text' => $this->text,
             'is_leaf' => $this->isLeaf,
             'url' => $this->url,
+            'added_time' => $this->added_time,
             'properties' => $this->properties
         ];
     }

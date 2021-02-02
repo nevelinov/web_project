@@ -22,8 +22,10 @@ function leafClick (v) {
         if (data.role=="student") {
             let estimationForm = document.getElementById("popupEstimateForm");
 			estimationForm.style.display="flex";
-			const link = document.getElementById("more-info");
-			link.href = vertexInfo.moreInfo ? vertexInfo.moreInfo : "https://github.com/";
+            if (vertexInfo.url!="") {
+                const link = document.getElementById("more-info-student");
+                link.href = vertexInfo.url; // to do fix when empty url
+            }
             document.getElementById("est-title").innerHTML=vertexInfo.name;
             document.getElementById("estimation-text").value="";
             document.getElementById("est-value").value="6";
@@ -33,14 +35,8 @@ function leafClick (v) {
                 estimationForm.style.display="none";
             }
         }
-        else if (data.role=="teacher"){
-			document.getElementById("popupPriorityForm").style.display="flex";
-			const link = document.getElementById("more-info");
-			link.href = vertexInfo.moreInfo;
-            document.getElementById("prior-title").innerHTML=vertexInfo.name;
-            document.getElementById("slider").value=1;
-            
-            getEstimations().then(estimations => {
+        else if (data.role=="teacher") {
+			getEstimations().then(estimations => {
                 index = 0;
                 arr = [];
                 for (estimation of estimations) {
@@ -52,15 +48,22 @@ function leafClick (v) {
                         });
                     }
                 }
-                if (arr.length>0) {
-                   document.getElementById('estimation-info-text').value = arr[index].text;
-	               document.getElementById('est-value-disabled').value = arr[index].value;
-                }
-                else {
-                   document.getElementById('estimation-info-text').value = "";
-	               document.getElementById('est-value-disabled').value = "";
+                if (arr.length==0) {
+                    myErrors(["Няма поставени оценки от студентите"]);
+                    return ;
                 }
                 
+                document.getElementById("popupPriorityForm").style.display="flex";
+                if (vertexInfo.url!="") {
+                    const link = document.getElementById("more-info-teacher");
+                    link.href = vertexInfo.url; // to do fix when empty url
+                }
+                document.getElementById("prior-title").innerHTML=vertexInfo.name;
+                document.getElementById("slider").value=1;
+
+                
+                document.getElementById('estimation-info-text').value = arr[index].text;
+	            document.getElementById('est-value-disabled').value = arr[index].value;
                 document.getElementById("prev-button").onclick = function (event) {
                     prev(vertexInfo);
                 }
