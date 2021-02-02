@@ -7,19 +7,21 @@ class Node implements JsonSerializable {
     private int $parentNodeId;
     private string $text;
     private bool $isLeaf;
+    private string $url;
     private string $properties;
 
-    public function __construct(int $nodeId, int $parentNodeId, $text, $isLeaf, $properties) {
+    public function __construct(int $nodeId, int $parentNodeId, $text, $isLeaf, $url, $properties) {
         $this->nodeId = $nodeId;
         $this->parentNodeId = $parentNodeId;
         $this->text = $text;
         $this->isLeaf = $isLeaf;
+        $this->url = $url;
         $this->properties = $properties;
     }
 
     public function jsonSerialize(): array {
 
-        $fieldsToSerialize = ['nodeId', 'parentNodeId', 'text', 'isLeaf', 'properties'];
+        $fieldsToSerialize = ['nodeId', 'parentNodeId', 'text', 'isLeaf', 'url', 'properties'];
 
         $jsonArray = [];
 
@@ -34,6 +36,6 @@ class Node implements JsonSerializable {
         return new Node(
             intval($dataArray['node_id']), intval($dataArray['parent_node_id']),
             $dataArray['text'],
-            boolval($dataArray['is_leaf']), $dataArray['properties']);
+            boolval($dataArray['is_leaf']), $dataArray['url'], $dataArray['properties']);
     }
 }

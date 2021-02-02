@@ -22,8 +22,8 @@ class NodeController {
             $connection = (new Db())->getConnection();
 
             $insertStatement = $connection->prepare("
-                INSERT INTO `nodes` (node_id, parent_node_id, text, is_leaf, properties)
-                    VALUES (:node_id, :parent_node_id, :text, :is_leaf, :properties)
+                INSERT INTO `nodes` (node_id, parent_node_id, text, is_leaf, url, properties)
+                    VALUES (:node_id, :parent_node_id, :text, :is_leaf, :url, :properties)
             ");
             
             $result = $insertStatement->execute($newNodeRequest->toArray());
@@ -50,7 +50,7 @@ class NodeController {
 
             $insertStatement = $connection->prepare("
                 UPDATE `nodes` SET
-                        `parent_node_id`=:parent_node_id,`text`=:text,`is_leaf`=:is_leaf,`properties`=:properties
+                        `parent_node_id`=:parent_node_id,`text`=:text,`is_leaf`=:is_leaf, `url`=:url, `properties`=:properties
                     WHERE `node_id` =:node_id
             ");
 

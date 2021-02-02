@@ -18,4 +18,7 @@ function mySuccess(list) {
         ul.appendChild(li);
         li.innerHTML += item;
     });
+    setTimeout(() => {
+        document.getElementById("show-me-success").style.display = "none";
+    }, 1500);
 }

@@ -10,6 +10,7 @@ class NodeRequest {
     private int $parentNodeId;
     private string $text;
     private bool $isLeaf;
+    private string $url;
     private string $properties;
 
 
@@ -22,6 +23,7 @@ class NodeRequest {
         $this->parentNodeId = isset($nodeData["parent_node_id"]) ? intval($nodeData["parent_node_id"]) : "";
         $this->text = isset($nodeData["text"]) ? $nodeData["text"] : "";
         $this->isLeaf = isset($nodeData["is_leaf"]) ? boolval($nodeData["is_leaf"]) : "";
+        $this->url = isset($nodeData["url"]) ? $nodeData["url"] : "";
         $this->properties = isset($nodeData["properties"]) ? $nodeData["properties"] : "";
     }
 
@@ -61,6 +63,7 @@ class NodeRequest {
             'parent_node_id' => $this->parentNodeId,
             'text' => $this->text,
             'is_leaf' => $this->isLeaf,
+            'url' => $this->url,
             'properties' => $this->properties
         ];
     }

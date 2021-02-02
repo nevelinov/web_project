@@ -9,3 +9,26 @@ function makeTree (addDrag) {
         window.onresize = tree.draw(addDrag);
     });
 }
+
+async function get_session_data(variables) {
+    let data = {};
+    for (variable of variables) {
+        let requestBody = new FormData();
+        requestBody.append('var',variable);
+        let value = await fetch('../php/session.php', {
+            method: 'POST',
+            body: requestBody
+            })
+            .then(value => value.json());
+        data[variable]=value;
+    }
+    return data;
+}
+
+(async function () {
+    get_session_data(['username', 'role'])
+        .then(data => {
+            let footer = document.getElementById('logged-user');
+            footer.innerHTML = `${data.username}, you are logged in as ${data.role}`;
+        });
+})();

@@ -11,8 +11,8 @@ fetch('php/getLoginStatus.php')
         }
     });
 
-// ges session information from php
-async function get_session_data(variables) {
+// get session information from php
+/*async function get_session_data(variables) {
     let data = {};
     for (variable of variables) {
         let requestBody = new FormData();
@@ -25,7 +25,7 @@ async function get_session_data(variables) {
         data[variable]=value;
     }
     return data;
-}
+}*/
 
 // get all estimations
 async function getEstimations() {
@@ -72,4 +72,22 @@ function postEstimation(vertexInfo) {
 function postMoreTime(vertexInfo) {
     //to do
     console.log("addtime");
+}
+
+async function postPriority() {
+    requestBody = new FormData();
+    requestBody.append('estimation_priority', document.getElementById('slider').value);
+    requestBody.append('se_id', arr[index].id);
+
+    let response = await fetch('php/priorities.php', {
+            method: 'POST',
+            body: requestBody
+        })
+        .then(response => response.json());
+
+    if (response.success) {
+        mySuccess(['Приоритета е успешно добавен!']);
+    } else {
+        console.log(response.errors);
+    }
 }
