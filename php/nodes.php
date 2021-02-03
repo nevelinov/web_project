@@ -26,11 +26,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
     }
 
     case 'POST': {
-        $nodeUpdateRequest = new NodeRequest($_POST);
+        $nodeCreateRequest = new NodeRequest($_POST);
         $response['success'] = false;
         
         try {
-            $nodeUpdateRequest->validate();
+            $nodeCreateRequest->validate();
         } catch (RequestValidationException $e) {
             http_response_code(400);
             $response['errors'] = $e->getErrors();
@@ -38,7 +38,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             return;
         }
         
-        $added = $nodeCtrl->addNode($nodeUpdateRequest);
+        $added = $nodeCtrl->addNode($nodeCreateRequest);
         $response['success'] = $added;
     
         if (!$added) {

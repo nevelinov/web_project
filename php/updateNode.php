@@ -19,9 +19,7 @@ $nodeUpdateRequest = new NodeRequest($_POST);
 $response['success'] = false;
 
 try {
-    
     $nodeUpdateRequest->validate();
-    
 } catch (RequestValidationException $e) {
     http_response_code(400);
     $response['errors'] = $e->getErrors();
@@ -29,7 +27,7 @@ try {
     return;
 }
 
-$added = $nodeCtrl->modifyNode($nodeUpdateRequest);
+$added = $nodeCtrl->addTimeToNode($nodeUpdateRequest);
 $response['success'] = $added;
 
 if (!$added) {

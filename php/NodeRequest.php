@@ -11,7 +11,7 @@ class NodeRequest {
     private string $text;
     private bool $isLeaf;
     private string $url;
-    private float $added_time;
+    private float $addedTime;
     private string $properties;
 
 
@@ -19,13 +19,12 @@ class NodeRequest {
      * Constructs a request object from associative array
      */
     public function __construct(array $nodeData) {
-
         $this->nodeId = isset($nodeData["node_id"]) ? intval($nodeData["node_id"]) : "";
-        $this->parentNodeId = isset($nodeData["parent_node_id"]) ? intval($nodeData["parent_node_id"]) : "";
+        $this->parentNodeId = isset($nodeData["parent_node_id"]) ? intval($nodeData["parent_node_id"]) : -1;
         $this->text = isset($nodeData["text"]) ? $nodeData["text"] : "";
-        $this->isLeaf = isset($nodeData["is_leaf"]) ? boolval($nodeData["is_leaf"]) : "";
+        $this->isLeaf = isset($nodeData["is_leaf"]) ? boolval($nodeData["is_leaf"]) : false;
         $this->url = isset($nodeData["url"]) ? $nodeData["url"] : "";
-        $this->added_time = isset($nodeData["added_time"]) ? $nodeData["added_time"] : "";
+        $this->addedTime = isset($nodeData["added_time"]) ? floatval($nodeData["added_time"]) : 0;
         $this->properties = isset($nodeData["properties"]) ? $nodeData["properties"] : "";
     }
 
@@ -39,9 +38,6 @@ class NodeRequest {
         $errors = [];
 
         $this->validateNonEmpty('nodeId', $errors);
-        $this->validateNonEmpty('parentNodeId', $errors);
-        $this->validateNonEmpty('text', $errors);
-        $this->validateNonEmpty('isLeaf', $errors);
 
         if ($errors) {
             throw new RequestValidationException($errors);
@@ -66,7 +62,7 @@ class NodeRequest {
             'text' => $this->text,
             'is_leaf' => $this->isLeaf,
             'url' => $this->url,
-            'added_time' => $this->added_time,
+            'added_time' => $this->addedTime,
             'properties' => $this->properties
         ];
     }

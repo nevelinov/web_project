@@ -68,10 +68,24 @@ function postEstimation(vertexInfo) {
     });
 }
 
-// add more time to component
-function postMoreTime(vertexInfo) {
-    //to do
-    console.log("addtime");
+async function postMoreTime(vertexInfo) {
+    requestBody = new FormData();
+    requestBody.append('added_time', document.getElementById('more-time-time-value').value);
+    requestBody.append('node_id', vertexInfo.id);
+    console.log(document.getElementById('more-time-time-value').value, vertexInfo.id);
+
+    let response = await fetch('php/updateNode.php', {
+            method: 'POST',
+            body: requestBody
+        })
+        .then(response => response.json());
+    
+    console.log(response);
+    if (response.success === true) {
+        mySuccess(["Времето е добавено успешно!"])
+    } else {
+        myErrors(["Грешка при записване на времето", response.errors.reason]);
+    }
 }
 
 async function postPriority() {

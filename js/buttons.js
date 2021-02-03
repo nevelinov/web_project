@@ -1,4 +1,5 @@
 function vertexAddTime (v, event) {
+    let vertexInfo=this.vertices[v];
     event.preventDefault();
     get_session_data(['role']).then(data => {
         if (data.role=="admin") {
