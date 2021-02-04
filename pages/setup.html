@@ -12,6 +12,7 @@
 		<script defer type="text/javascript" src="../js/tree-drag.js"></script>
 		<script defer type="text/javascript" src="../js/setup.js"></script>
 		<script defer type="text/javascript" src="../js/open-close.js"></script>
+		<script defer type="text/javascript" src="../js/successAndError.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="../styles/tree_visualisation.css"  media="screen,projection"/>
 		<link rel="stylesheet" type="text/css" href="../styles/global-styles.css">
@@ -43,9 +44,27 @@
 	<div class="flex-div" id="popupImportCSVTreeForm" onclick='showMessage(event, "popupImportCSVTreeForm")' ondblclick='closeForm(event, "popupImportCSVTreeForm")'>
 		<form class="forms" id="import-tree" onsubmit="event.preventDefault();">
 			<h1>Вмъкване на дърво</h1>		
-			<textarea type="text" id="tree-data" name="tree-data" placeholder="CSV формат: node_id, parent_node_id, text, 	is_leaf, url"></textarea>		
-			<input class="submit-button" id="import-tree-button" type="submit" onclick="closeForm('popupImportCSVTreeForm')" value="Вмъкни дървото" />
+			<textarea type="text" id="tree-data" name="tree-data" placeholder="CSV формат: node_id, parent_node_id, text, is_leaf, url"></textarea>		
+			<input class="submit-button" id="import-tree-button" type="submit" value="Вмъкни дървото" />
 		</form>
+	</div>
+
+	<div class="errors-div" id="show-me-errors" onclick='closeForm(event, "show-me-errors")'>
+		<div class="errors" id="list-errors">
+			<h2>ERRORS:</h2>
+			<ul id="errors-list">
+
+			</ul>
+		</div>
+ 	</div>
+  
+  	<div class="success-div" id="show-me-success" onclick='closeForm(event, "show-me-success")'>
+		<div class="success" id="list-success">
+			<h2>SUCCESS:</h2>
+			<ul id="success-list">
+
+			</ul>
+		</div>
 	</div>
 
 	<span id="notify">Double click to exit</span>

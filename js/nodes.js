@@ -37,41 +37,19 @@ async function updateNode() {
     }
 }
 
-async function addNode() {
-    // get these dynamically
+async function addNode(node) {
     let requestBody = new FormData();
-    requestBody.append('node_id', 3);
-    requestBody.append('parent_node_id', 1);
-    requestBody.append('text', 'node 2');
-    requestBody.append('is_leaf', true);
-    requestBody.append('properties', 'node 2 json');
+    requestBody.append('node_id', node.node_id);
+    requestBody.append('parent_node_id', node.parent_node_id);
+    requestBody.append('text', node.text);
+    requestBody.append('url', node.url);
+    requestBody.append('is_leaf', node.is_leaf);
 
-    let response = await fetch('php/nodes.php', {
+    let response = await fetch('../php/nodes.php', {
                 method: 'POST',
                 body: requestBody
             })
             .then(response => response.json());
     
-    // TODO update
-    if (response.success) {
-        console.log(response);
-    } else {
-        console.log(response.errors);
-    }
+    return response;
 }
-
-/*window.onload = function() {
-    // check if user is logged in
-    // if not redirect to login page
-    fetch('php/getLoginStatus.php')
-        .then(response => response.json())
-        .then(loginResponse => {
-            if (!loginResponse.logged) {
-                document.location = 'pages/login.html';
-        }
-    });
- 
-    getNodes();
-    addNode();
-    getNodes();
-}*/

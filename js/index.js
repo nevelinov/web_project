@@ -11,22 +11,6 @@ fetch('php/getLoginStatus.php')
         }
     });
 
-// get session information from php
-/*async function get_session_data(variables) {
-    let data = {};
-    for (variable of variables) {
-        let requestBody = new FormData();
-        requestBody.append('var',variable);
-        let value = await fetch('php/session.php', {
-            method: 'POST',
-            body: requestBody
-            })
-            .then(value => value.json());
-        data[variable]=value;
-    }
-    return data;
-}*/
-
 // get all estimations
 async function getEstimations() {
     let response = await fetch('php/estimations.php')
