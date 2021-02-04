@@ -44,18 +44,26 @@ class NodeController {
         return $result;
     }
 
-    public function addTimeToNode(NodeRequest $nodeUpdateRequest): bool {
+    public function updateNode(NodeRequest $nodeUpdateRequest): bool {
         try {
             $connection = (new Db())->getConnection();
 
             $insertStatement = $connection->prepare("
                 UPDATE `nodes` SET
-                        `added_time`=:added_time
-                    WHERE `node_id` =:node_id
+                        `parent_node_id`=:parent_node_id, `text`=:text, `is_leaf`=:is_leaf, `url`=:url, `added_time`=:added_time, `properties`=:properties
+                    WHERE `node_id`=:node_id
             ");
             $nodeRequestArray = $nodeUpdateRequest->toArray();
 
-            $result = $insertStatement->execute(['added_time' => $nodeRequestArray['added_time'], 'node_id' => $nodeRequestArray['node_id']]);
+            $result = $insertStatement->execute([
+                'node_id' => $nodeRequestArray['node_id'],
+                'parent_node_id' => $nodeRequestArray['parent_node_id'],
+                'text' => $nodeRequestArray['text'],
+                'is_leaf' => $nodeRequestArray['is_leaf'],
+                'url' => $nodeRequestArray['url'],
+                'added_time' => $nodeRequestArray['added_time'],
+                'properties' => $nodeRequestArray['properties']
+                ]);
         
             if ($result === false) {
                 die(json_encode($insertStatement->errorInfo()));

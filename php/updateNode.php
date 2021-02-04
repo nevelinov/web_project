@@ -3,14 +3,14 @@
 session_start();
 
 spl_autoload_register(function($className) {
-require_once("../php/$className.php");
+    require_once("../php/$className.php");
 });
 
 $logged = isset($_SESSION['username']);
 if (!$logged) {
-http_response_code(401);
-echo json_encode(['errors' => 'За да видите този ресурс трябва да сте влезли в системата.'], JSON_UNESCAPED_UNICODE);
-return;
+    http_response_code(401);
+    echo json_encode(['errors' => 'За да видите този ресурс трябва да сте влезли в системата.'], JSON_UNESCAPED_UNICODE);
+    return;
 }
 
 $nodeCtrl = new NodeController();
@@ -27,7 +27,7 @@ try {
     return;
 }
 
-$added = $nodeCtrl->addTimeToNode($nodeUpdateRequest);
+$added = $nodeCtrl->updateNode($nodeUpdateRequest);
 $response['success'] = $added;
 
 if (!$added) {

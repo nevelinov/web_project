@@ -1,5 +1,6 @@
 function Vertex () {
     this.id=undefined;
+    this.parentNodeId=undefined;
 	this.name=undefined;
 	this.isLeaf=undefined;
 	this.cssProperties=undefined;
@@ -80,7 +81,7 @@ function Tree () {
 	
 	this.addTreeData = async function (treeData) {
 		// format of array treeData is in the database format
-		for (let i=0; i<this.n; i++) {
+		for (let i=0; i<treeData.length; i++) {
             this.vertices[treeData[i].nodeId].init(
                 treeData[i].nodeId,
                 treeData[i].text,
@@ -89,9 +90,10 @@ function Tree () {
                 treeData[i].url,
                 treeData[i].added_time
             );
+            this.vertices[treeData[i].nodeId].parentNodeId=treeData[i].parentNodeId;
 		}
 		await get_session_data(["root_node_id"]).then(data => {
-            for (let i=0; i<this.n; i++) {
+            for (let i=0; i<treeData.length; i++) {
                 if (treeData[i].parentNodeId==-1) continue;
                 this.vertices[treeData[i].nodeId].visible=false;
                 this.edgeList.push([treeData[i].parentNodeId,treeData[i].nodeId]);
@@ -152,11 +154,11 @@ function Tree () {
         let csv = "";
         for (let i=0; i<this.n; i++) {
             csv += i + "," + parent[i] + "," + this.vertices[i].name + "," +
-                this.vertices[i].isLeaf + "," + this.vertices[i].url + "," +
+                (+this.vertices[i].isLeaf) + "," + this.vertices[i].url + "," +
                 this.vertices[i].added_time + "," + this.vertices[i].cssProperties;
             csv += "\n";
         }
-        console.log(csv);
+        return csv;
     }
 	
 	this.draw = function (addDrag) {
@@ -328,7 +330,6 @@ function addSaveFunctionality (svgName) {
         
         let image = new Image();
         image.src="data:image/svg+xml; charset=utf8, "+encodeURIComponent(svgString);
-        image.svgSave=this.svgSave;
         image.onload = function () {
             context.drawImage(image,0,0);
             let imageURI=canvas.toDataURL('image/png').replace('image/png','image/octet-stream');

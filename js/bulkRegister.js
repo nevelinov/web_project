@@ -7,7 +7,6 @@ async function onBulkRegister() {
     for(user of registerData.split('\n')) {
         userData = user.split(',');
         if (userData.length < 3) {
-            //alert('Unvalid csv data!');
             myErrors(["Невалидни данни или неправилен формат"]);
             return;
         }
@@ -15,7 +14,8 @@ async function onBulkRegister() {
             username: userData[0],
             password: userData[1],
             name: userData[2],
-            role: 'student'
+            role: 'student',
+            root_node_id: 0
         }
         users.push(user);
     }
@@ -24,23 +24,19 @@ async function onBulkRegister() {
     // stop on error
     let lastRegisteredUser = null;
     for(user of users) {
-        //console.log("try to register user: ", user);
-
         let registered = await registerUser(user);
         if (registered.success === true) {
             lastRegisteredUser = user;
         } else {
             if (lastRegisteredUser != null) {
-                //console.log(registered.errors);
                 myErrors([`Последно бе регистриран: ${lastRegisteredUser.username}`, "Грешка при регистрация на следващия потребител", registered.errors.reason]);
             } else {
                 console.log(registered.errors.reason);
                 myErrors(["Грешка при регистрация още при 1вия потребител", registered.errors.reason]);
             }
             return;
-        };
+        }
     }
-    //alert("Потребителите са успешно регистрирани!")
     mySuccess(["Потребителите са успешно регистрирани!"])
     document.getElementById('register-data').value = '';
 }
@@ -51,15 +47,13 @@ async function onOneRegister() {
     let name = document.getElementById('register-one-name').value;
     let roles = document.getElementsByName('register-one-role');
     let role = (roles[0].checked) ? 'student' : 'teacher';
-
-    user = {username, password, name, role};
+    let root_node_id = 0; // TO DO get root node id from form
+    
+    user = {username, password, name, role, root_node_id};
     let result = await registerUser(user);
     if (result.success === true) {
-        //alert('Потребителят е регистриран успешно!');
         mySuccess(["Потребителят е успешно регистриран!"])
     } else {
-        //alert('Проблем при регистрацията на потребителя, моля погледнете в лога!');
-        //console.log(result.errors);
         myErrors(["Грешка при регистрация на потребител", result.errors.reason]);
     }
     
@@ -71,16 +65,13 @@ async function onOneRegisterPopup() {
     let name = document.getElementById('register-one-popup-name').value;
     let roles = document.getElementsByName('register-one-popup-role');
     let role = (roles[0].checked) ? 'student' : 'teacher';
+    let root_node_id = 0; // TO DO get root node id from form
     
-
-    user = {username, password, name, role};
+    user = {username, password, name, role, root_node_id};
     let result = await registerUser(user);
     if (result.success === true) {
-        //alert('Потребителят е регистриран успешно!');
         mySuccess(["Потребителят е успешно регистриран!"])
     } else {
-        //alert('Проблем при регистрацията на потребителя, моля погледнете в лога!');
-        //console.log(result.errors);
         myErrors(["Грешка при регистрация на потребител", result.errors.reason]);
     }
 

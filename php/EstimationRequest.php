@@ -10,6 +10,8 @@ class EstimationRequest {
     private int $nodeId;
     private string $estimationText;
     private float $estimationValue;
+    private float $estimationPriority;
+    private bool $prioritySet;
 
     /**
      * Constructs a request object from associative array
@@ -20,6 +22,8 @@ class EstimationRequest {
         $this->nodeId = isset($estimationData["node_id"]) ? intval($estimationData["node_id"]) : -1;
         $this->estimationText = isset($estimationData["estimation_text"]) ? $estimationData["estimation_text"] : "";
         $this->estimationValue = isset($estimationData["estimation_value"]) ? floatval($estimationData["estimation_value"]) : -1;
+        $this->estimationPriority = isset($estimationData["estimation_priority"]) ? floatval($estimationData["estimation_priority"]) : 1;
+        $this->prioritySet = isset($estimationData["priority_set"]) ? boolval($estimationData["priority_set"]) : false;
     }
 
     /**
@@ -42,7 +46,7 @@ class EstimationRequest {
 
     private function validateNonEmpty($fieldName, &$errors) {
 
-        if (!$this->$fieldName) {
+        if ((!$this->$fieldName)&&($this->$fieldName!="0")) {
             $errors[$fieldName] = 'Field should not be empty';
         }
     }
@@ -56,7 +60,9 @@ class EstimationRequest {
             'user_id' => $this->userId,
             'node_id' => $this->nodeId,
             'estimation_text' => $this->estimationText,
-            'estimation_value' => $this->estimationValue
+            'estimation_value' => $this->estimationValue,
+            'estimation_priority' => $this->estimationPriority,
+            'priority_set' => $this->prioritySet
         ];
     }
 

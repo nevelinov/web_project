@@ -43,11 +43,10 @@ function postEstimation(vertexInfo) {
                 })
                 .then(response => response.json());
 
-        // TODO update
-        if (response.success) {
-            console.log('Estimation was added');
+        if (response.success === true) {
+            mySuccess(["Оценката е добавена успешна!"])
         } else {
-            console.log(response.errors);
+            myErrors(["Грешка при записване на оценката", response.errors.reason]);
         }
     });
 }
@@ -56,7 +55,11 @@ async function postMoreTime(vertexInfo) {
     requestBody = new FormData();
     requestBody.append('added_time', document.getElementById('more-time-time-value').value);
     requestBody.append('node_id', vertexInfo.id);
-    console.log(document.getElementById('more-time-time-value').value, vertexInfo.id);
+    requestBody.append('parent_node_id', vertexInfo.parentNodeId);
+    requestBody.append('text', vertexInfo.name);
+    requestBody.append('url', vertexInfo.url);
+    requestBody.append('is_leaf', +vertexInfo.isLeaf);
+    requestBody.append('properties', vertexInfo.cssProperties);
 
     let response = await fetch('php/updateNode.php', {
             method: 'POST',
@@ -64,7 +67,6 @@ async function postMoreTime(vertexInfo) {
         })
         .then(response => response.json());
     
-    console.log(response);
     if (response.success === true) {
         mySuccess(["Времето е добавено успешно!"])
     } else {

@@ -45,8 +45,7 @@ class NodeRequest {
     }
 
     private function validateNonEmpty($fieldName, &$errors) {
-
-        if (!$this->$fieldName) {
+        if ((!$this->$fieldName)&&($this->$fieldName!="0")) {
             $errors[$fieldName] = 'Field should not be empty';
         }
     }

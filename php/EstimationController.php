@@ -22,8 +22,8 @@ class EstimationController {
             $connection = (new Db())->getConnection();
 
             $sqlStatement = $connection->prepare("
-                INSERT INTO `student_estimations`(`user_id`, `node_id`, `estimation_text`, `estimation_value`)
-                VALUES (:user_id, :node_id, :estimation_text, :estimation_value)
+                INSERT INTO `student_estimations`(`user_id`, `node_id`, `estimation_text`, `estimation_value`, `estimation_priority`, `priority_set`)
+                VALUES (:user_id, :node_id, :estimation_text, :estimation_value, :estimation_priority, :priority_set)
             ");
             $result = $sqlStatement->execute($estimationRequest->toArray());
 

@@ -3,11 +3,18 @@ function makeTree (addDrag) {
     if (addDrag==false) page="index";
     else page="other";
     getNodes(page).then(async nodes => {
-        var tree = new Tree();
-        tree.init(".tree",nodes.length);
+        let tree = new Tree();
+        let n=0;
+        for (node of nodes) {
+            if (n<node.nodeId+1) n=node.nodeId+1;
+        }
+        tree.init(".tree",n);
         await tree.addTreeData(nodes);
         window.onresize = tree.draw(addDrag);
-        tree.exportCSV();
+        if (get_page()=="setup.html") {
+            document.getElementById("export-csv").onclick = exportCSV.bind(this, tree);
+            document.getElementById("save-changes-button").onclick = saveTreeFromCSV.bind(this, tree);
+        }
     });
 }
 

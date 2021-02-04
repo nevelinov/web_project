@@ -25,7 +25,7 @@ function leafClick (v) {
 			estimationForm.style.display="flex";
             if (vertexInfo.url!="") {
                 const link = document.getElementById("more-info-student");
-                link.href = vertexInfo.url; // to do fix when empty url
+                link.href = vertexInfo.url;
             }
             document.getElementById("est-title").innerHTML=vertexInfo.name;
             document.getElementById("estimation-text").value="";
@@ -57,7 +57,7 @@ function leafClick (v) {
                 document.getElementById("popupPriorityForm").style.display="flex";
                 if (vertexInfo.url!="") {
                     const link = document.getElementById("more-info-teacher");
-                    link.href = vertexInfo.url; // to do fix when empty url
+                    link.href = vertexInfo.url;
                 }
                 document.getElementById("prior-title").innerHTML=vertexInfo.name;
                 document.getElementById("slider").value=1;

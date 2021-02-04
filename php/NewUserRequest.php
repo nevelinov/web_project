@@ -21,7 +21,7 @@ class NewUserRequest {
         $this->password = isset($userData["password"]) ? $userData["password"] : "";
         $this->name = isset($userData["name"]) ? $userData["name"] : "";
         $this->role = isset($userData["role"]) ? $userData["role"] : "";
-        $this->root_node_id = isset($userData["root_node_id"]) ? $userData["root_node_id"] : "";
+        $this->root_node_id = isset($userData["root_node_id"]) ? intval($userData["root_node_id"]) : "";
     }
 
     /**
@@ -45,7 +45,7 @@ class NewUserRequest {
 
     private function validateNonEmpty($fieldName, &$errors) {
 
-        if (!$this->$fieldName) {
+        if ((!$this->$fieldName)&&($this->$fieldName!="0")) {
             $errors[$fieldName] = 'Field should not be empty';
         }
 

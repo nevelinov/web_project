@@ -14,14 +14,15 @@ async function getNodes(page) {
     }
 }
 
-async function updateNode() {
-    // get these dynamically
+async function updateNode(node) {
     let requestBody = new FormData();
-    requestBody.append('node_id', 1);
-    requestBody.append('parent_node_id', 1);
-    requestBody.append('text', 'updated text');
-    requestBody.append('is_leaf', false);
-    requestBody.append('properties', 'updated json');
+    requestBody.append('node_id', node.node_id);
+    requestBody.append('parent_node_id', node.parent_node_id);
+    requestBody.append('text', node.text);
+    requestBody.append('url', node.url);
+    requestBody.append('is_leaf', node.is_leaf);
+    requestBody.append('added_time', node.added_time);
+    requestBody.append('properties', node.properties);
 
     let response = await fetch('../php/updateNode.php', {
                 method: 'POST',
@@ -29,12 +30,7 @@ async function updateNode() {
             })
             .then(response => response.json());
     
-    // TODO update
-    if (response.success) {
-        console.log('success', response);
-    } else {
-        console.log(response.errors);
-    }
+    return response;
 }
 
 async function addNode(node) {
@@ -44,6 +40,8 @@ async function addNode(node) {
     requestBody.append('text', node.text);
     requestBody.append('url', node.url);
     requestBody.append('is_leaf', node.is_leaf);
+    requestBody.append('added_time', node.added_time);
+    requestBody.append('properties', node.properties);
 
     let response = await fetch('../php/nodes.php', {
                 method: 'POST',

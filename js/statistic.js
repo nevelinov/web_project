@@ -30,7 +30,7 @@ function drawAndCalc (tree) {
             for (let estimation of estimations) {
                 for (let i=0; i<tree.n; i++) {
                     if (estimation.nodeId==i) {
-                        sums[i]+=estimation.estimationValue;
+                        sums[i]+=estimation.estimationValue*estimation.estimationPriority;
                         cnt[i]++;
                     }
                 }
@@ -42,7 +42,7 @@ function drawAndCalc (tree) {
             fillSums(0,tree.adjList,sums);
             
             for (let i=0; i<tree.n; i++) {
-                let sum=tree.s.text(0,0,sums[i]+" ч.");
+                let sum=tree.s.text(0,0,sums[i].toFixed(2)+" ч.");
                 tree.svgVertices[i].text=tree.s.group(tree.svgVertices[i].text,sum);
                 sum.attr({"font-size": 30, "text-align": "center", class: "unselectable", fill: "#B22222"});
                 if (i!=0) {
