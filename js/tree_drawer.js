@@ -358,7 +358,7 @@ function findMaxDepth (vr, dep, adjList, verticesData) {
 }
 
 function fillVersDepth (vr, dep, maxDepth, adjList, verticesData, versDepth) {
-	if ((dep==maxDepth)||(vr!=-1)) versDepth[dep].push(vr);
+	versDepth[dep].push(vr);
 	let flagChildren=false;
     if (vr!=-1) {
         for (child of adjList[vr]) {
@@ -438,6 +438,7 @@ function calcPositions (tree) {
 			ind++;
 		}
 		for (vertex of versDepth[i]) {
+            if (vertex==-1) continue;
 			if ((ind==versDepth[i+1].length)||(tree.adjMatrix[vertex][versDepth[i+1][ind]]==0)) {
 			   tree.svgVertices[vertex].coord=undefined;
 			   continue;
@@ -455,7 +456,7 @@ function calcPositions (tree) {
 		let prevX=0;
 		for (j=0; j<versDepth[i].length; j++) {
 			let v=versDepth[i][j];
-			if (tree.svgVertices[v].coord!==undefined) {
+			if ((v!=-1)&&(tree.svgVertices[v].coord!==undefined)) {
 			   prevX=tree.svgVertices[v].coord[0]+tree.svgVertices[v].width+xDistVertices;
 			   continue;
 			}
@@ -463,12 +464,16 @@ function calcPositions (tree) {
             let maxNeighbourW=0,cnt=0;
 			for (h=j; h<versDepth[i].length; h++) {
 				let next=versDepth[i][h];
-				if (tree.svgVertices[next].coord!==undefined) {
+				if ((next!=-1)&&(tree.svgVertices[next].coord!==undefined)) {
 				   nextX=tree.svgVertices[next].coord[0];
 				   break;
 				}
                 if (h>j) {
-                    let neighbourW=(tree.svgVertices[next].width+tree.svgVertices[versDepth[i][h-1]].width);
+                    let neighbourW=0;
+                    if (next!=-1) neighbourW+=tree.svgVertices[next].width;
+                    else neighbourW+=maxWidth;
+                    if (versDepth[i][h-1]!=-1) neighbourW+=tree.svgVertices[versDepth[i][h-1]].width;
+                    else neighbourW+=maxWidth;
                     if ((h>j)&&(maxNeighbourW<neighbourW)) maxNeighbourW=neighbourW;
                 }
                 cnt++;
@@ -477,17 +482,17 @@ function calcPositions (tree) {
                 let x=prevX;
                 for (h=j; h<versDepth[i].length; h++) {
                     let v=versDepth[i][h];
-                    if (tree.svgVertices[v].coord!==undefined) break;
+                    if ((v!=-1)&&(tree.svgVertices[v].coord!==undefined)) break;
                     x+=(nextX-prevX-xDistVertices)/(cnt+1);
-                    tree.svgVertices[v].coord=[x-tree.svgVertices[v].width/2,y];
+                    if (v!=-1) tree.svgVertices[v].coord=[x-tree.svgVertices[v].width/2,y];
                 }
             }
             else {
                 let x=prevX;
                 for (h=j; h<versDepth[i].length; h++) {
                     let v=versDepth[i][h];
-                    if (tree.svgVertices[v].coord!==undefined) break;
-                    tree.svgVertices[v].coord=[x,y];
+                    if ((v!=-1)&&(tree.svgVertices[v].coord!==undefined)) break;
+                    if (v!=-1) tree.svgVertices[v].coord=[x,y];
                     x+=(nextX-prevX-xDistVertices)/cnt;
                 }
             }
