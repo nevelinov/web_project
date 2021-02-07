@@ -44,7 +44,7 @@
 	<div class="flex-div" id="popupImportCSVTreeForm" onclick='showMessage(event, "popupImportCSVTreeForm")' ondblclick='closeForm(event, "popupImportCSVTreeForm")'>
 		<form class="forms" id="import-tree" onsubmit="event.preventDefault();">
 			<h1>Вмъкване на върхове</h1>		
-			<textarea type="text" id="tree-data" name="tree-data" placeholder="CSV формат: node_id, parent_node_id, text, is_leaf, url"></textarea>		
+			<textarea type="text" id="tree-data" name="tree-data" placeholder="CSV формат: node_id, parent_node_id, text, is_leaf, url?, added_time?, properties?"></textarea>		
 			<input class="submit-button" id="import-tree-button" type="submit" value="Вмъкни върхове" />
 		</form>
 	</div>

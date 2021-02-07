@@ -12,6 +12,8 @@ function fillSums (v, adjList, sums) {
         sums[v]+=sums[to];
     }
 }
+
+const measure="ч.";
 function drawAndCalc (tree) {
     tree.draw(true);
     for (let i=0; i<tree.n; i++) {
@@ -42,7 +44,7 @@ function drawAndCalc (tree) {
             fillSums(0,tree.adjList,sums);
             
             for (let i=0; i<tree.n; i++) {
-                let sum=tree.s.text(0,0,sums[i].toFixed(2)+" ч.");
+                let sum=tree.s.text(0,0,sums[i].toFixed(2)+" "+measure);
                 tree.svgVertices[i].text=tree.s.group(tree.svgVertices[i].text,sum);
                 sum.attr({"font-size": 30, "text-align": "center", class: "unselectable", fill: "#B22222"});
                 if (i!=0) {

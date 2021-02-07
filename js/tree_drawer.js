@@ -121,7 +121,7 @@ function Tree () {
             }
             for (let i=0; i<this.n; i++) {
                 if (colourful[i]==false) {
-                   this.vertices[i].cssProperties+="background: grey; color: white; border-color: black";
+                   this.vertices[i].cssProperties+=";background: grey; color: white; border-color: black";
                 }
             }
         });
