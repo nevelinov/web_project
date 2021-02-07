@@ -23,10 +23,9 @@ function leafClick (v) {
         if (data.role=="student") {
             let estimationForm = document.getElementById("popupEstimateForm");
 			estimationForm.style.display="flex";
-            if (vertexInfo.url!="") {
-                const link = document.getElementById("more-info-student");
-                link.href = vertexInfo.url;
-            }
+            const link = document.getElementById("more-info-student");
+            if (vertexInfo.url!="") link.href = vertexInfo.url;
+            else link.removeAttribute("href");
             document.getElementById("est-title").innerHTML=vertexInfo.name;
             document.getElementById("estimation-text").value="";
             document.getElementById("est-value").value="6";
@@ -55,10 +54,9 @@ function leafClick (v) {
                 }
                 
                 document.getElementById("popupPriorityForm").style.display="flex";
-                if (vertexInfo.url!="") {
-                    const link = document.getElementById("more-info-teacher");
-                    link.href = vertexInfo.url;
-                }
+                const link = document.getElementById("more-info-teacher");
+                if (vertexInfo.url!="") link.href = vertexInfo.url;
+                else link.removeAttribute("href");
                 document.getElementById("prior-title").innerHTML=vertexInfo.name;
                 document.getElementById("slider").value=1;
 
