@@ -402,9 +402,9 @@ function calcPositions (tree) {
 		for (vertex of versDepth[i]) {
 			if (vertex==-1) continue;
 			let text;
-			if (tree.vertices[vertex].name===undefined) text=(vertex+1).toString();
+            if (tree.vertices[vertex].name===undefined) text=(vertex+1).toString();
 			else text=tree.vertices[vertex].name;
-			let foreignObj='<foreignObject width="150" height="1000" id="temp"><div class="vertex-text" style="' + tree.vertices[i].cssProperties + '" id="tempDiv"><span id="tempSpan">'
+			let foreignObj='<foreignObject width="150" height="1000" id="temp"><div class="vertex-text" style="' + tree.vertices[vertex].cssProperties + '" id="tempDiv"><span id="tempSpan">'
 				+ text + '</span></div></foreignObject>';
 			tree.s.append(Snap.parse(foreignObj));
 			let tempDiv = document.getElementById("tempDiv");
